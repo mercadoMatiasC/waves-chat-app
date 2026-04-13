@@ -25,9 +25,10 @@ class ConversationRequest extends FormRequest
         }
 
         //UPDATING
-        if ($this->isMethod('patch') || $this->isMethod('put'))
-            $rules['is_group'] = ['prohibited']; 
-
+        if ($this->isMethod('patch') || $this->isMethod('put')){
+            $isGroup = $this->route('conversation')->is_group;
+            $rules['participants'] = ['sometimes', 'array', 'min:1'];
+        }
         return $rules;
     }
 }

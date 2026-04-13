@@ -1,11 +1,17 @@
 <?php
 
 use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
     Route::middleware(['auth:sanctum'])->group(function () {
+        //-- PROFILE --
+        Route::controller(ProfileController::class)->group(function () {
+            Route::get   ('/me', 'myself');
+        });
+    
         //-- CONVERSATIONS --
         Route::controller(ConversationController::class)->group(function () {
             Route::post  ('chats', 'store');
@@ -14,16 +20,19 @@ use Illuminate\Support\Facades\Route;
             Route::get   ('chats/{conversation}/messages', 'show');
         });
 
-        //-- PROFILE --
-        Route::controller(ProfileController::class)->group(function () {
-            Route::get   ('/me', 'myself');
+        //-- MESSAGES --
+        Route::controller(MessageController::class)->group(function (){
+            Route::post  ('chats/{conversation}/messages', 'store');
+            Route::get   ('messages/{message}', 'show');
+            Route::patch ('messages/{message}', 'update');
         });
     });
 
     Route::get('/test-session', function (Request $request) {
-    return [
-        'session_id' => $request->session()->getId(),
-        'user' => $request->user(),
-    ];
-});
+        return [
+            'session_id' => $request->session()->getId(),
+            'user' => $request->user(),
+        ];
+    });
+
 require __DIR__.'/auth.php';

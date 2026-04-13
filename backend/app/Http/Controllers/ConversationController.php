@@ -30,14 +30,18 @@ class ConversationController extends Controller
     }
 
     public function show(Conversation $conversation) {
-        $conversation->load('participants');
+        $conversation->load(['participants', 'messages']);
 
         return (new ConversationShowResource($conversation));
     }
 
     public function update(ConversationRequest $request, Conversation $conversation, ConversationService $conversation_service) {  
-        $conversation = $conversation_service->updateConversation($request->validated(), $conversation);
+        $conversation = $conversation_service->updateConversation(
+            $request->safe()->except('participants'), 
+            $request->participants,
+            $conversation
+        );
 
-        return (new ConversationIndexResource($conversation))->response()->setStatusCode(200);
+        return (new ConversationShowResource($conversation))->response()->setStatusCode(200);
     }
 }

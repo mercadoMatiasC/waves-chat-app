@@ -40,17 +40,27 @@ class ConversationService {
         });
     }
 
-    public function updateConversation(array $data, Conversation $conversation) {
+    public function updateConversation(array $data, array $participant_ids, Conversation $conversation) {
         if (!$conversation->isGroup()) 
             throw new BusinessException("This conversation is not a group!");
 
         if (!$conversation->owner->is(Auth::user()))
             throw new BusinessException("You don't have permission to update this chat information.");
 
-        return DB::transaction(function () use ($data, $conversation) {
+        return DB::transaction(function () use ($data, $participant_ids, $conversation) {
             $conversation->refresh()->lockForUpdate();
+            $current_ids = $conversation->participants()->pluck('users.id')->toArray();
+
+            $new_ids = array_diff($participant_ids, $current_ids);
+
+            $syncData = [];
+            foreach ($participant_ids as $id) 
+                    $syncData[$id] = (in_array($id, $new_ids)) ? ['last_joined_at' => now()]:[];
+
+            $conversation->participants()->sync($syncData);
             $conversation->update($data);
-            return $conversation;
+
+            return $conversation->load('participants');
         });
     }
 }
