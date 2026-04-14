@@ -11,6 +11,7 @@ class UserShowResource extends JsonResource{
             'username' => $this->username,
             'description' => $this->description,
             'profile_image_route' => $this->profile_image_route ? url($this->profile_image_route) : null,
+            'wave' => (new WaveShowResource($this->whenLoaded('wave'))),
             'active_status' => $this->active_status,
             'is_admin' => $this->is_admin,
         ];

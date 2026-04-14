@@ -16,6 +16,10 @@ class User extends Authenticatable
         return $this->hasMany(Conversation::class, 'owner_id');
     }
 
+    public function wave(){
+        return $this->hasOne(Wave::class);
+    }
+
     //-- GET --
     public function isAdmin(){
         return $this->is_admin == 1;
