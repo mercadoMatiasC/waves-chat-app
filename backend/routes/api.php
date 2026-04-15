@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\FriendController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WaveController;
@@ -11,6 +12,16 @@ use Illuminate\Support\Facades\Route;
         //-- PROFILE --
         Route::controller(ProfileController::class)->group(function () {
             Route::get   ('/me', 'myself');
+        });
+
+        //-- FRIENDS --
+        Route::controller(FriendController::class)->group(function () {
+            Route::post  ('/friend-requests/{user}', 'store');
+            Route::patch ('/friend-requests/{user}', 'accept');
+
+            Route::get   ('/friends', 'index');
+            Route::get   ('/friend-requests/sent', 'sentRequests');
+            Route::get   ('/friend-requests/received', 'receivedRequests');
         });
     
         //-- CONVERSATIONS --

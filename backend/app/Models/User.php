@@ -20,6 +20,21 @@ class User extends Authenticatable
         return $this->hasOne(Wave::class);
     }
 
+    //FRIENDSHIPS WHERE USER IS THE lower_user_id
+    public function friendsLower() {
+        return $this->belongsToMany(User::class, 'friends', 'lower_user_id', 'higher_user_id')->withPivot('request_accepted', 'sender_id')->withTimestamps();
+    }
+
+    //FRIENDSHIPS WHERE USER IS THE higher_user_id
+    public function friendsHigher() {
+        return $this->belongsToMany(User::class, 'friends', 'higher_user_id', 'lower_user_id')->withPivot('request_accepted', 'sender_id')->withTimestamps();
+    }
+
+    //MERGE ALL FRIENDSHIPS IN A SINGLE TABLE
+    public function getAllFriendshipsAttribute() {
+        return $this->friendsLower->merge($this->friendsHigher);
+    }
+
     //-- GET --
     public function isAdmin(){
         return $this->is_admin == 1;
