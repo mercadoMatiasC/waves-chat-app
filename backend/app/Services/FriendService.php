@@ -2,13 +2,14 @@
 namespace App\Services;
 
 use App\Exceptions\BusinessException;
+use App\Models\Conversation;
 use App\Models\Friend;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class FriendService {
-    private function getSortedIds(int $idA, int $idB): array {
+    public function getSortedIds(int $idA, int $idB): array {
         $ids = [$idA, $idB];
         sort($ids);
         return $ids;
@@ -60,6 +61,33 @@ class FriendService {
             $friend_request->update(['request_accepted' => true]);
 
             return $friend_request;
+        });
+    }
+
+    public function removeFriend(User $friend) {
+        $auth_user = Auth::user();
+        
+        $sorted_ids = $this->getSortedIds($auth_user->id, $friend->id);
+        $friendship = Friend::where('lower_user_id', $sorted_ids[0])->where('higher_user_id', $sorted_ids[1])->first();
+
+        if (!$friendship)
+            throw new BusinessException("No relationship exists with this user.");
+
+        return DB::transaction(function () use ($friendship, $auth_user, $friend) {
+            $friendship->lockForUpdate();
+            
+            $conversation = Conversation::where('is_group', false)
+                ->whereHas('participants', function($query) use ($auth_user) {
+                    $query->where('users.id', $auth_user->id);
+                })
+                ->whereHas('participants', function($query) use ($friend) {
+                    $query->where('users.id', $friend->id);
+                })->first();
+
+            if ($conversation)
+                $conversation->delete(); //CASCADE DELETES SHARED MESSAGES AND ATTACHMENTS
+
+            return $friendship->delete();
         });
     }
 }

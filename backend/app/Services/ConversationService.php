@@ -18,14 +18,28 @@ class ConversationService {
             throw new BusinessException("A 1-to-1 chat already exists between these users.");
     }
 
+    protected function ensureNewMembersAreFriends(User $auth_user, array $participant_ids) {
+        if (empty($participant_ids)) 
+            return;
+
+        $invited_users = User::whereIn('id', $participant_ids)->get();
+
+        foreach ($invited_users as $invited_user)
+            if (!$auth_user->isFriendsWith($invited_user))
+                throw new BusinessException("User {$invited_user->name} is not in your friends list.");
+    }
+
     public function storeConversation(array $data, array $participant_ids, ?User $owner = null) {
         return DB::transaction(function () use ($data, $participant_ids, $owner) {            
+            $auth_user = Auth::user();
+            $this->ensureNewMembersAreFriends($auth_user, $participant_ids);
+
             if (!$owner) 
                 $this->checkForExistingOneToOne($participant_ids);
             else
                 $data['owner_id'] = $owner->id;
 
-            array_push($participant_ids, Auth::user()->id);
+            array_push($participant_ids, $auth_user->id);
             $participant_ids = array_unique($participant_ids);
 
             $conversation = Conversation::create($data);
@@ -52,10 +66,11 @@ class ConversationService {
             $current_ids = $conversation->participants()->pluck('users.id')->toArray();
 
             $new_ids = array_diff($participant_ids, $current_ids);
+            $this->ensureNewMembersAreFriends(Auth::user(), $new_ids);
 
             $syncData = [];
             foreach ($participant_ids as $id) 
-                    $syncData[$id] = (in_array($id, $new_ids)) ? ['last_joined_at' => now()]:[];
+                $syncData[$id] = (in_array($id, $new_ids)) ? ['last_joined_at' => now()] : [];
 
             $conversation->participants()->sync($syncData);
             $conversation->update($data);

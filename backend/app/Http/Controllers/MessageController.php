@@ -11,13 +11,28 @@ use App\Services\MessageService;
 class MessageController extends Controller
 {
     public function store(MessageRequest $request, Conversation $conversation, MessageService $service) {
-        $message = $service->storeMessage($request->validated(), $conversation);
+        $mock_attachments = [
+            [
+                "is_image" => true,
+                "file_name" => 'pepito.jpg',
+                "file_size" => '2048',
+                "file_path" => "conversations/{$conversation->id}/pepito.jpg",
+            ],
+            [
+                "is_image" => false,
+                "file_name" => 'resume.pdf',
+                "file_size" => '1024',
+                "file_path" => "conversations/{$conversation->id}/images/resume.pdf",
+            ],
+        ];
+        
+        $message = $service->storeMessage($request->validated(), $conversation, $mock_attachments);
 
         return (new MessageShowResource($message))->response()->setStatusCode(201);
     }
 
     public function show(Message $message, MessageService $service) {
-        $message->load('conversation.participants'); //..., 'attachments']);
+        $message->load(['conversation.participants', 'attachments']);
         $service->checkIfUserCanSeeMessage($message);
 
         return new MessageShowResource($message);
@@ -27,9 +42,5 @@ class MessageController extends Controller
         $service->updateMessage($request->validated(), $message->conversation, $message);
 
         return (new MessageShowResource($message))->response()->setStatusCode(200);
-    }
-
-    public function destroy(Message $message) {
-        //NOT FOR NOW!
     }
 }

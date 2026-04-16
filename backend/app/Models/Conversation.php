@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conversation extends Model
 {
+    protected $fillable = [
+        'owner_id',
+        'is_group',
+        'group_title',
+    ];
+
     protected $casts = [
         'is_group' => 'boolean',
     ];
@@ -16,7 +22,7 @@ class Conversation extends Model
     }
 
     public function participants() {
-        return $this->belongsToMany(User::class, 'participants')->withPivot('last_read_at', 'last_joined_at')->withTimestamps();
+        return $this->belongsToMany(User::class, 'participants')->withPivot(['last_joined_at', 'hidden_at', 'last_read_at'])->withTimestamps();
     }
 
     public function messages() {

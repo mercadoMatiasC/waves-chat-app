@@ -12,9 +12,9 @@ class WaveRequest extends FormRequest
 
     public function rules(): array {
         $rules = [
-            'text_body' => ['nullable', 'string', 'max:255'],
-            'colour_code' => ['nullable', 'string', 'regex:/^#([a-fA-F0-9]{3}){1,2}$/'],
-            'emoji' => ['nullable', 'string']
+            'text_body'   => ['sometimes', 'string', 'max:255'],
+            'colour_code' => ['sometimes', 'string', 'regex:/^#([a-fA-F0-9]{3}){1,2}$/'],
+            'emoji'       => ['sometimes', 'string']
         ];
 
         return $rules; 

@@ -7,6 +7,28 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    protected $fillable = [
+        'username',
+        'email',
+        'password',
+        'description',
+        'profile_image_route',
+        'active_status',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
     //-- RELATIONSHIPS --
     public function conversations(){
         return $this->belongsToMany(Conversation::class, 'participants')->using(Participant::class)->withPivot('last_read_at', 'last_joined_at')->withTimestamps();
@@ -40,16 +62,17 @@ class User extends Authenticatable
         return $this->is_admin == 1;
     }
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public function isFriendsWith(User $user): bool {
+        $ids = [$this->id, $user->id];
+        sort($ids);
 
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return Friend::where('lower_user_id', $ids[0])->where('higher_user_id', $ids[1])->where('request_accepted', true)->exists();
+    }
+
+    public function canAccessContentOf(User $otherUser): bool {
+        if ($this->id === $otherUser->id)
+            return true;
+
+        return $this->isFriendsWith($otherUser);
     }
 }

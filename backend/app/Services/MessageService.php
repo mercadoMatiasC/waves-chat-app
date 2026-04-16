@@ -26,14 +26,18 @@ class MessageService {
             throw new BusinessException("You are not a member of this conversation.");
     }
 
-    public function storeMessage(array $data, Conversation $conversation) {
+    public function storeMessage(array $data, Conversation $conversation, array $attachments = []) {
         $this->checkIfUserCanManageMessage($conversation, $data['sender_id']);
 
-        return DB::transaction(function () use ($data, $conversation) {   
+        return DB::transaction(function () use ($data, $conversation, $attachments) {   
             $message = $conversation->messages()->create($data);
+            
+            if (!empty($attachments))
+                $message->attachments()->createMany($attachments);
+
             $conversation->touch();
 
-            return $message;
+            return $message->load('attachments');
         });
     }
 

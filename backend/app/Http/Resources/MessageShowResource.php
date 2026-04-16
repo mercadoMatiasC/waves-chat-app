@@ -11,11 +11,7 @@ class MessageShowResource extends JsonResource{
             "conversation_id" => $this->conversation_id,
             "sender_id" => $this->sender_id,
             "text_body" => $this->text_body,
-            "attachments" => [
-                "empty1" => "PLACEHOLDER1",
-                "empty2" => "PLACEHOLDER2",
-                "empty3" => "PLACEHOLDER3",
-            ],
+            "attachments" => AttachmentResource::collection($this->whenLoaded('attachments')),
         ];
     } 
 }

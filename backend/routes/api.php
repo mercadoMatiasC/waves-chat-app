@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\MessageController;
@@ -12,12 +13,20 @@ use Illuminate\Support\Facades\Route;
         //-- PROFILE --
         Route::controller(ProfileController::class)->group(function () {
             Route::get   ('/me', 'myself');
+            Route::patch ('/me', 'update');
+        });
+
+        //-- 🌊 WAVES --
+        Route::controller(WaveController::class)->group(function () {
+            Route::get   ('/users/{user}/wave', 'show');
+            Route::patch ('/my-wave', 'update');
         });
 
         //-- FRIENDS --
         Route::controller(FriendController::class)->group(function () {
             Route::post  ('/friend-requests/{user}', 'store');
             Route::patch ('/friend-requests/{user}', 'accept');
+            Route::delete('/friends/{user}', 'destroy');
 
             Route::get   ('/friends', 'index');
             Route::get   ('/friend-requests/sent', 'sentRequests');
@@ -39,11 +48,12 @@ use Illuminate\Support\Facades\Route;
             Route::patch ('messages/{message}', 'update');
         });
 
-        //-- 🌊 Waves --
-        Route::controller(WaveController::class)->group(function () {
-            Route::get   ('/users/{user}/wave', 'show');
-            Route::patch ('/my-wave', 'update');
+        //-- ATTACHMENTS --
+        Route::controller(AttachmentController::class)->group(function (){
+            Route::delete('/attachments/{attachment}', 'destroy');
         });
+
+
     });
 
     Route::get('/test-session', function (Request $request) {

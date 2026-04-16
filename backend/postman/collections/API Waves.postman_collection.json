@@ -1,0 +1,591 @@
+{
+  "info": {
+    "_postman_id": "8deb4ce9-ba10-42bb-9f87-ab9c15647221",
+    "name": "API Waves",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52851224",
+    "_collection_link": "https://go.postman.co/collection/52851224-8deb4ce9-ba10-42bb-9f87-ab9c15647221?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "/me",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/me",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/me",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"elmati\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/me",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"mattTheWolf\",\r\n    \"description\": \"It's a me.\",\r\n    \"email\": \"matt@wolf.com\",\r\n    \"password\": \"password123\",\r\n    \"password_confirmation\": \"password123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/register",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    //\"email\": \"mario@bros.com\",\r\n    \"email\": \"matt@wolf.com\",\r\n    \"password\": \"password123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/login",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"is_group\": true,\r\n    \"owner_id\": 1,\r\n    \"group_title\": \"my group!\",\r\n    \"participants\": [1,1]\r\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/logout",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/test-session",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/test-session",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "test-session"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/sanctum/csrf-cookie",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://192.168.100.228:8000/sanctum/csrf-cookie",
+              "protocol": "http",
+              "host": [
+                "192",
+                "168",
+                "100",
+                "228"
+              ],
+              "port": "8000",
+              "path": [
+                "sanctum",
+                "csrf-cookie"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Waves",
+      "item": [
+        {
+          "name": "/users/{user}/wave",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/users/1/wave",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "users",
+                "1",
+                "wave"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/my-wave",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"text_body\": \"This is an updated wave!\",\r\n  \"colour_code\": \"#FFFFF\",\r\n  \"emoji\": \"🎃\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/my-wave",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "my-wave"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Friends",
+      "item": [
+        {
+          "name": "/friend-requests/{user}",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/friend-requests/2",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "friend-requests",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/friend-requests/{user}",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"text_body\": \"holi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/friend-requests/1",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "friend-requests",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/friends",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/friends",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "friends"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/friends/{user}",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/friends/{user}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "friends",
+                "{user}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/friend-requests/sent",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/friend-requests/sent",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "friend-requests",
+                "sent"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/friend-requests/received",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/friend-requests/received",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "friend-requests",
+                "received"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Conversations",
+      "item": [
+        {
+          "name": "/chats",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/chats",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "chats"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/chats",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"is_group\": true,\r\n    \"group_title\": \"my group!\",\r\n    \"participants\": [2,2]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/chats",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "chats"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/chats/{conversation}",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"owner_id\": 2,\r\n  \"group_title\": \"new title\",\r\n  \"participants\": [2,3]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/chats/2",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "chats",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/chats/{conversation}/messages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/chats/2/messages",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "chats",
+                "2",
+                "messages"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Messages",
+      "item": [
+        {
+          "name": "/chats/{chat}/messages",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"sender_id\": 2,\r\n    \"text_body\": \"Este es un mensaje\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/chats/2/messages",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "chats",
+                "2",
+                "messages"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/messages/{message}",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/messages/1",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "messages",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/messages/{message}",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"text_body\": \"holi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/messages/1",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "messages",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Attachments",
+      "item": [
+        {
+          "name": "/attachments/{attachment}/remove",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/attachments/5/remove",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "attachments",
+                "5",
+                "remove"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

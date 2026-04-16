@@ -56,8 +56,13 @@ class FriendController extends Controller
         });
     }
 
-    public function destroy(Friend $friend)
-    {
-        //
+    public function destroy(User $user, FriendService $service) {
+        $service->removeFriend($user);
+        
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Friend removed successfully'
+            ], 200);
     }
 }
