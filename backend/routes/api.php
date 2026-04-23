@@ -38,11 +38,12 @@ use Illuminate\Support\Facades\Route;
             Route::post  ('chats', 'store');
             Route::get   ('chats', 'index');
             Route::patch ('chats/{conversation}', 'update');
-            Route::get   ('chats/{conversation}/messages', 'show');
+            Route::get   ('chats/{conversation}', 'show'); // -- MODIFIED ENDPOINT --
         });
 
         //-- MESSAGES --
         Route::controller(MessageController::class)->group(function (){
+            Route::get   ('chats/{conversation}/messages', 'index'); // -- NEW ENDPOINT --
             Route::post  ('chats/{conversation}/messages', 'store');
             Route::get   ('messages/{message}', 'show');
             Route::patch ('messages/{message}', 'update');

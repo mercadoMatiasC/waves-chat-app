@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MessageRequest;
+use App\Http\Resources\MessageIndexResource;
 use App\Http\Resources\MessageShowResource;
 use App\Models\Conversation;
 use App\Models\Message;
@@ -10,6 +11,12 @@ use App\Services\MessageService;
 
 class MessageController extends Controller
 {
+    public function index(Conversation $conversation){
+        $messages = $conversation->messages()->orderBy('created_at', 'desc')->paginate(20);
+
+        return (MessageIndexResource::collection($messages));
+    }
+
     public function store(MessageRequest $request, Conversation $conversation, MessageService $service) {
         $mock_attachments = [
             [

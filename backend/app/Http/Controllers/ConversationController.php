@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class ConversationController extends Controller
 {
     public function index() {
-        $conversations = Auth::user()->conversations()->paginate(20);
+        $conversations = Auth::user()->conversations()->with(['participants'])->paginate(20);
 
         return (ConversationIndexResource::collection($conversations));
     }

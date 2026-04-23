@@ -46,14 +46,14 @@ class FriendController extends Controller
     }
 
     public function accept(User $user, FriendService $friendService, ConversationService $convService) {
-        return DB::transaction(function () use ($user, $friendService, $convService) {
-            $friend_request = $friendService->acceptFriendRequest($user);
-            
-            $participant_ids = [Auth::id(), $user->id];
-            $convService->storeConversation([], $participant_ids);
+        $friend_request = $friendService->acceptFriendRequest($user);
+        Auth::user()->refresh();
 
-            return (new FriendResource($friend_request))->response()->setStatusCode(200);
-        });
+        //CREATING THE 1-to-1 CONVERSATION
+        $participant_ids = [$user->id];
+        $convService->storeConversation([], $participant_ids);
+
+        return (new FriendResource($friend_request))->response()->setStatusCode(200);
     }
 
     public function destroy(User $user, FriendService $service) {

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Conversation extends Model
 {
@@ -23,6 +24,12 @@ class Conversation extends Model
 
     public function participants() {
         return $this->belongsToMany(User::class, 'participants')->withPivot(['last_joined_at', 'hidden_at', 'last_read_at'])->withTimestamps();
+    }
+
+    public function getOtherParticipantAttribute() { //FOR 1-to-1 CHATS
+        return $this->participants->first(function ($user) {
+            return $user->id !== Auth::id();
+        });
     }
 
     public function messages() {

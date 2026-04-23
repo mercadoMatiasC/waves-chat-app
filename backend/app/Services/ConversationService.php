@@ -26,7 +26,7 @@ class ConversationService {
 
         foreach ($invited_users as $invited_user)
             if (!$auth_user->isFriendsWith($invited_user))
-                throw new BusinessException("User {$invited_user->name} is not in your friends list.");
+                throw new BusinessException("User {$invited_user->username} is not in your friends list.");
     }
 
     public function storeConversation(array $data, array $participant_ids, ?User $owner = null) {

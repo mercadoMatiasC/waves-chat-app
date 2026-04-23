@@ -16,8 +16,13 @@ export default function App() {
     <Routes location={location} key={location.pathname}>
       <Route element={<Layout />}>
         <Route path="/" element={<ConversationsIndex />} />
-        <Route path="/chats/1" element={<ConversationShow />} />
 
+        {/* -- CONVERSATIONS -- */}
+        <Route path="/chats">
+          <Route index element={<ConversationsIndex />} />
+          <Route path=":id" element={<ConversationShow />} />            
+        </Route>
+        
         <Route path="Me" element={<Me />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Logout" element={<Logout />} />

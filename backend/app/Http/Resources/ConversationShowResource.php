@@ -12,7 +12,6 @@ class ConversationShowResource extends JsonResource {
             'owner_id' => $this->owner_id,
             'group_title' => $this->group_title,
             'participants' => UserIndexResource::collection($this->whenLoaded('participants')),
-            'messages' => MessageIndexResource::collection($this->whenLoaded('messages')),
         ];
     } 
 }

@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'api/login',
             'api/logout',
+            'api/*'
         ]);
 
         $middleware->alias([
@@ -26,30 +27,27 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // 1. Handle Validation specifically (should return 422)
+        //VALIDATIONS HANDLING
         $exceptions->render(function (\Illuminate\Validation\ValidationException $e, $request) {
-            if ($request->expectsJson()) {
+            if ($request->expectsJson())
                 return response()->json([
                     'success' => false,
-                    'message' => 'Invalid credentials.', // Or $e->getMessage()
+                    'message' => 'Invalid credentials.',
                     'errors' => $e->errors(),
-                ], 422); // Use 422 for validation/auth failures
-            }
+                ], 422);
         });
 
-        // 2. Handle your Business Logic exceptions (return 409)
+        //BUSINESS EXCEPTIONS HANDLING
         $exceptions->render(function (BusinessException $e, $request) {
             if ($request->is('api/*') || $request->expectsJson()) 
                 return response()->json(['success' => false, 'message' => $e->getMessage()], 409);
         });
 
-        // 3. ONLY catch general Throwable at the very end
+        //GENERAL EXCEPTIONS HANDLING
         $exceptions->render(function (Throwable $e, $request) {
             if ($request->is('api/*') || $request->expectsJson()) {
-                // Check if it's an AuthenticationException specifically
-                if ($e instanceof \Illuminate\Auth\AuthenticationException) {
+                if ($e instanceof \Illuminate\Auth\AuthenticationException)
                     return response()->json(['success' => false, 'message' => 'Unauthenticated.'], 401);
-                }
 
                 $msg = config('app.debug') ? $e->getMessage() : 'Internal server error.';
                 return response()->json(['success' => false, 'message' => $msg], 500);

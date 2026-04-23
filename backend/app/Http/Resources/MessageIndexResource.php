@@ -11,6 +11,7 @@ class MessageIndexResource extends JsonResource{
             "conversation_id" => $this->conversation_id,
             "sender_id" => $this->sender_id,
             "text_body" => $this->text_body,
+            "created_at" => $this->created_at,
         ];
     } 
 }
