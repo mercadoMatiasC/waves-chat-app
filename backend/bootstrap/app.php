@@ -13,50 +13,46 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->statefulApi(); // You already have this
-        
+        $middleware->statefulApi(); 
+
         $middleware->validateCsrfTokens(except: [
-            'login', 
-            'register',
-            'logout',
-            'api/*',
+            'api/login',
+            'api/logout',
         ]);
 
-        $middleware->group('api', [
-            \Illuminate\Cookie\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class, // <--- ADD THIS
-            //\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class,
+        $middleware->alias([
+            'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
+            'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->render(function (BusinessException $e, $request) { //DOMAIN EXCEPTIONS
-            if ($request->is('api/*') || $request->expectsJson()) 
-                return response()->json(['success' => false, 'message' => $e->getMessage()], 409);
-        });
-        
-        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e, $request) {
-            if ($request->is('api/*') || $request->expectsJson()) {
-                return response()->json(['success' => false, 'message' => 'Resource not found.'], 404);
-            }
-        });
-
-        $exceptions->render(function (Throwable $e, $request) { //UNEXPECTED SERVER ERRORS
-            if ($request->is('api/*') || $request->expectsJson()) {
-                $msg = config('app.debug') ? $e->getMessage() : 'Internal server error.';
-                return response()->json(['success' => false, 'message' => $msg], 500);
-            }
-        });
-
+        // 1. Handle Validation specifically (should return 422)
         $exceptions->render(function (\Illuminate\Validation\ValidationException $e, $request) {
             if ($request->expectsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Validation errors',
+                    'message' => 'Invalid credentials.', // Or $e->getMessage()
                     'errors' => $e->errors(),
-                ], 422);
+                ], 422); // Use 422 for validation/auth failures
+            }
+        });
+
+        // 2. Handle your Business Logic exceptions (return 409)
+        $exceptions->render(function (BusinessException $e, $request) {
+            if ($request->is('api/*') || $request->expectsJson()) 
+                return response()->json(['success' => false, 'message' => $e->getMessage()], 409);
+        });
+
+        // 3. ONLY catch general Throwable at the very end
+        $exceptions->render(function (Throwable $e, $request) {
+            if ($request->is('api/*') || $request->expectsJson()) {
+                // Check if it's an AuthenticationException specifically
+                if ($e instanceof \Illuminate\Auth\AuthenticationException) {
+                    return response()->json(['success' => false, 'message' => 'Unauthenticated.'], 401);
+                }
+
+                $msg = config('app.debug') ? $e->getMessage() : 'Internal server error.';
+                return response()->json(['success' => false, 'message' => $msg], 500);
             }
         });
     })->create();
