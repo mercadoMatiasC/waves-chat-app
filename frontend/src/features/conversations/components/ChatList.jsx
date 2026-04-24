@@ -9,7 +9,6 @@ export function ChatList(){
     if (error) return <p>Error: {error.message}</p>;
 
     const chats = chatData.data;
-    //const meta = chatData.meta;
 
     return (
         <section className="flex flex-col w-[92%] flex-1 min-h-0">

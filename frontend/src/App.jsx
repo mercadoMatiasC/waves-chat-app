@@ -10,6 +10,7 @@ import { ConversationShow } from './features/conversations/pages/ConversationSho
 import { Login } from './features/profile/pages/Login';
 import { Logout } from './features/profile/pages/Logout';
 import { Me } from './features/profile/pages/Me';
+import { Register } from './features/profile/pages/Register';
 
 export default function App() {
   return (
@@ -23,8 +24,10 @@ export default function App() {
           <Route path=":id" element={<ConversationShow />} />            
         </Route>
         
-        <Route path="Me" element={<Me />} />
+        {/* -- PROFILE -- */}
+        <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/Me" element={<Me />} />
         <Route path="/Logout" element={<Logout />} />
       </Route>
     </Routes>

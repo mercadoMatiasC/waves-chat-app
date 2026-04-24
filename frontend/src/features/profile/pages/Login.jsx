@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
+import { Link } from "react-router-dom";
 
 export function Login(){
     const loginMutation = useLogin();
@@ -39,7 +40,11 @@ export function Login(){
                 <label htmlFor="login-password">Password</label>
                 <input id="login-password" type="password" name="password" onChange={handleChange} className="w-full bg-[#303030] placeholder:font-light p-3 rounded-2xl focus:outline-none" />
         
-                <div className="flex justify-end">
+                <div className="flex justify-between">
+                    <Link to="/Register" className="font-light hover:text-white/75">
+                        <p>New to Waves? Register here</p>
+                    </Link>
+
                     <button type="submit" className="bg-sky-700 px-3 py-2 rounded-2xl hover:cursor-pointer">
                         Login
                     </button>

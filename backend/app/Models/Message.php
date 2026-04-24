@@ -9,6 +9,10 @@ class Message extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'text_body' => 'encrypted',
+    ];
+
     protected $fillable = [
         'sender_id',
         'text_body',
