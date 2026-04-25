@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
 import { Link } from "react-router-dom";
+import { MutationMessages } from "../../../components/MutationMessages";
 
 export function Login(){
     const loginMutation = useLogin();
@@ -45,10 +46,12 @@ export function Login(){
                         <p>New to Waves? Register here</p>
                     </Link>
 
-                    <button type="submit" className="bg-sky-700 px-3 py-2 rounded-2xl hover:cursor-pointer">
+                    <button type="submit" className="border-2 border-green-600">
                         Login
                     </button>
                 </div>
+                {/* -- MUTATION MESSAGES -- */}
+                <MutationMessages mutation={loginMutation} />
             </form>
 
             <footer className="flex justify-center items-center text-center">

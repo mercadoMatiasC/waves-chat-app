@@ -14,7 +14,10 @@ export function Header(){
             <div className="hidden flex-col gap-4 lg:flex">
                 <img src="/brand/icons/waves-icon.webp" width={64} alt="Waves icon" />
                 <img src="/brand/icons/add-friend-icon.webp" width={64} alt="Add a friend icon" />
-                <img src="/brand/icons/avatar.webp" width={64} alt="My avatar placeholder" />
+
+                <Link to="/Me" className="font-light hover:text-white/75">
+                    <img src="/brand/icons/avatar.webp" width={64} alt="My avatar placeholder" />
+                </Link>
 
                 <Link to="/Logout">
                     <img src="/brand/icons/logout-icon.webp" width={64} alt="Log out icon" />

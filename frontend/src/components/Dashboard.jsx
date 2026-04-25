@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function Dashboard(){
     const icon_size = 100;
     const icon_class = "drop-shadow-xl drop-shadow-black hover:-translate-y-1 hover:cursor-pointer ease-in-out duration-200";
@@ -10,7 +12,14 @@ export function Dashboard(){
             <div className="grid grid-cols-2 gap-10">
                 <img src="/brand/icons/waves-icon.webp" width={icon_size} alt="Waves icon" className={icon_class} />
                 <img src="/brand/icons/add-friend-icon.webp" width={icon_size} alt="Add a friend icon" className={icon_class} />
-                <img src="/brand/icons/avatar.webp" width={icon_size} alt="My avatar placeholder" className={icon_class} />
+                
+                <Link to="/Me">
+                    <img src="/brand/icons/avatar.webp" width={icon_size} alt="My avatar placeholder" className={icon_class} />
+                </Link>
+
+                <Link to="/Logout">
+                    <img src="/brand/icons/logout-icon.webp" width={icon_size} alt="Log out icon" className={icon_class} />
+                </Link>
             </div>
         </main>
     );

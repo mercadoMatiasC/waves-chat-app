@@ -20,6 +20,17 @@ input[type="search"],input[type="text"],input[type="email"],input[type="password
     box-shadow: inset 0 4px 6px 0 rgba(0, 0, 0, 0.3);
 }
 
+/* BUTTON STYLE */
+button{
+    padding: 6px 15px 6px 15px;
+    border-radius: 12px;
+    background-color: rgb(14, 14, 14);
+}
+
+button:hover{
+    cursor: pointer;
+}
+
 /* SCROLLBAR STYLE */
 #chat-message-container {scrollbar-color: transparent;}
 #chat-message-container ::-webkit-scrollbar {width: 0px}

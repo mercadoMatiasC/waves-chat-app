@@ -31,8 +31,13 @@ export function ConversationShow() {
 
             {/* -- CURRENT CHAT -- */}
             <section key={id} className="flex flex-col w-full h-full overflow-hidden justify-between backdrop-blur-sm backdrop-brightness-80 lg:w-[70%] lg:rounded-xl lg:pl-2">
+                {/* -- CHAT HEAD INFORMATION -- */}
                 <ChatHeader chat={showChatData} />
+
+                {/* -- ACTUAL MESSAGES -- */}
                 <MainMessageContainer messages={messages} messagesPagination={messagesPagination} me={me} />
+
+                {/* -- MESSAGE SEND FORM -- */}
                 <MessageForm chat_id={id} my_id={me?.data.id} />          
             </section>
         </main>

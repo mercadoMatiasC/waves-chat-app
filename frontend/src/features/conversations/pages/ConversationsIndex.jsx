@@ -1,5 +1,5 @@
 import { ChatList } from "../components/ChatList";
-import { Dashboard } from "../components/Dashboard";
+import { Dashboard } from "../../../components/Dashboard";
 
 export function ConversationsIndex(){
     return (
