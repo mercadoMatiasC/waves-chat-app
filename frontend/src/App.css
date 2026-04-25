@@ -20,6 +20,16 @@ input[type="search"],input[type="text"],input[type="email"],input[type="password
     box-shadow: inset 0 4px 6px 0 rgba(0, 0, 0, 0.3);
 }
 
+/* WAVES SIGN */
+#waves-sign{
+    background: linear-gradient(to right, #13e3ff, #03fca9);
+    font-weight: 600;
+  
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
 /* BUTTON STYLE */
 button{
     padding: 6px 15px 6px 15px;

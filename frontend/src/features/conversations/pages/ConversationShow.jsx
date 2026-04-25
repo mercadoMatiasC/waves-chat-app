@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useChatMessages } from "../hooks/useChatMessages";
 import { useMe } from "../../profile/hooks/useMe";
 import { MainMessageContainer } from "../components/MainMessagesContainer";
+import { LoadingScreen } from "../../../components/LoadingScreen";
 
 export function ConversationShow() {
     const { id } = useParams();
@@ -15,7 +16,7 @@ export function ConversationShow() {
     const { data: chatMessages, isLoading: messagesIsLoading, isError: messagesError,
         fetchNextPage, hasNextPage, isFetchingNextPage } = useChatMessages(id);
 
-    if (isLoading || messagesIsLoading || meIsLoading) return <p>Loading...</p>;
+    if (isLoading || messagesIsLoading || meIsLoading) return <LoadingScreen />
     if (error || messagesError || meError) return <p>Error loading chat.</p>;
 
     //FLATS DIFFERENT PAGES OF ARRAYS INTO A SINGLE ARRAY

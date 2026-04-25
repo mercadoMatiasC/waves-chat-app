@@ -64,7 +64,7 @@ export function ProfileForm({ user = null }){
                     {is_edit ? (
                         <p>Update your information</p>
                     ) : (
-                        <p>Welcome to <span className="text-emerald-300">Waves</span>!</p>
+                        <p>Welcome to <span id="waves-sign">Waves</span>!</p>
                     )}
                 </h1>
 
@@ -76,13 +76,12 @@ export function ProfileForm({ user = null }){
                     <input id="register-password" type="password" name="password" value={formData.password} onChange={handleChange} className="w-full bg-[#303030] placeholder:font-light p-3 rounded-2xl focus:outline-none" />
 
 
-                {formData.password && (
-                    <>
-                        <label htmlFor="register-confirm-password">Confirm password</label>
-                        <input id="register-confirm-password" type="password" name="password_confirmation" value={formData.password_confirmation} onChange={handleChange} className="w-full bg-[#303030] placeholder:font-light p-3 rounded-2xl focus:outline-none" />
-                    </>
-                )}
-
+                    {formData.password && (
+                        <>
+                            <label htmlFor="register-confirm-password">Confirm password</label>
+                            <input id="register-confirm-password" type="password" name="password_confirmation" value={formData.password_confirmation} onChange={handleChange} className="w-full bg-[#303030] placeholder:font-light p-3 rounded-2xl focus:outline-none" />
+                        </>
+                    )}
                 </div>
                 
                 <div id="about-myself" className="space-y-6">

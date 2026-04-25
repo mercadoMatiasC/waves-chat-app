@@ -18,7 +18,7 @@ export function MainMessageContainer({ messages, messagesPagination, me}){
                     </>
                 ) : (
                     <div className="flex-1 flex items-center justify-center">
-                        <p className="text-gray-500">No messages yet. Say hi!</p>
+                        <p className="text-white/90 font-light text-lg">No messages yet. Say hi!</p>
                     </div>
                 )}
             </div>
