@@ -13,12 +13,12 @@ import { Logout } from './features/profile/pages/Logout';
 import { Me } from './features/profile/pages/Me';
 import { Register } from './features/profile/pages/Register';
 import { UsersFriends } from './features/profile/pages/UsersFriends';
+import { UserProfile } from './features/profile/pages/UserProfile';
 
 export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        
         {/* -- PUBLIC ROUTES -- */}
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
@@ -27,16 +27,20 @@ export default function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<ConversationsIndex />} />
           
-          <Route path="/chats">
+          {/* -- CONVERSATIONS -- */}
+          <Route path="/Chats">
             <Route index element={<ConversationsIndex />} />
             <Route path=":id" element={<ConversationShow />} />            
           </Route>
           
-          <Route path="/Users" element={<UsersFriends />} />
+          {/* -- PROFILE -- */}
+          <Route path="/Users">
+            <Route index element={<UsersFriends />} />
+            <Route path=":id" element={<UserProfile />} />
+          </Route>
           <Route path="/Me" element={<Me />} />
           <Route path="/Logout" element={<Logout />} />
         </Route>
-
       </Route>
     </Routes>
   );

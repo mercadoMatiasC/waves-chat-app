@@ -6,6 +6,7 @@ use App\Models\Conversation;
 use App\Http\Requests\ConversationRequest;
 use App\Http\Resources\ConversationIndexResource;
 use App\Http\Resources\ConversationShowResource;
+use App\Models\User;
 use App\Services\ConversationService;
 use Illuminate\Support\Facades\Auth;
 

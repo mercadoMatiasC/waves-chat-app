@@ -27,30 +27,52 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //VALIDATIONS HANDLING
+        
+        //VALIDATION (422)
         $exceptions->render(function (\Illuminate\Validation\ValidationException $e, $request) {
-            if ($request->expectsJson())
+            if ($request->expectsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Invalid credentials.',
+                    'message' => 'Invalid data.',
                     'errors' => $e->errors(),
                 ], 422);
+            }
         });
 
-        //BUSINESS EXCEPTIONS HANDLING
+        //MODEL NOT FOUND (404)
+        $exceptions->render(function (\Illuminate\Database\Eloquent\ModelNotFoundException $e, $request) {
+            return response()->json([
+                'success' => false,
+                'message' => 'The requested resource does not exist.'
+            ], 404);
+        });
+
+        //BUSINESS LOGIC (409)
         $exceptions->render(function (BusinessException $e, $request) {
-            if ($request->is('api/*') || $request->expectsJson()) 
-                return response()->json(['success' => false, 'message' => $e->getMessage()], 409);
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 409);
         });
 
-        //GENERAL EXCEPTIONS HANDLING
+        //READ ID ON NULL
+        $exceptions->render(function (\Error $e, $request) {
+            if (str_contains($e->getMessage(), 'read property "id" on null')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Internal logic error: Tried to access an ID on a non-existent object.'
+                ], 500);
+            }
+        });
+
+        //GLOBAL FALLBACK
         $exceptions->render(function (Throwable $e, $request) {
             if ($request->is('api/*') || $request->expectsJson()) {
-                if ($e instanceof \Illuminate\Auth\AuthenticationException)
+                if ($e instanceof \Illuminate\Auth\AuthenticationException) {
                     return response()->json(['success' => false, 'message' => 'Unauthenticated.'], 401);
+                }
 
+                $status = method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500;
                 $msg = config('app.debug') ? $e->getMessage() : 'Internal server error.';
-                return response()->json(['success' => false, 'message' => $msg], 500);
+                
+                return response()->json(['success' => false, 'message' => $msg], $status);
             }
         });
     })->create();

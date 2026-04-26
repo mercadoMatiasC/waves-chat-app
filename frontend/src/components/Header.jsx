@@ -17,7 +17,7 @@ export function Header(){
 
     return (
         <header className="flex flex-col w-screen text-white bg-[#181818] justify-between items-center py-1 h-16 lg:p-3 lg:flex-col lg:h-screen lg:w-[4%]">
-            <div className="flex justify-between w-full items-center px-3">
+            <div className="flex justify-between w-full items-center px-3 lg:px-0">
                 <Link to="/">
                     <img src="/brand/mini-logo.webp" width={64} alt="Waves mini logo" className="hover:drop-shadow-xl drop-shadow-amber-400 ease-in-out duration-200" />
                 </Link>

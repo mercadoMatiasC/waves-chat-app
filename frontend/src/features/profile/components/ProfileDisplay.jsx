@@ -7,9 +7,9 @@ export function ProfileDisplay({ user }){
                 
                 <div className="flex flex-col">
                     <h1 className="text-start py-3 text-xl font-light shrink-0">
-                        {user.username}
+                        <span id="waves-sign">{user.username}</span>
                     </h1>
-                    <h2>
+                    <h2 className="font-light">
                         {user.description}
                     </h2>
                 </div>

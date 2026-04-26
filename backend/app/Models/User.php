@@ -38,6 +38,21 @@ class User extends Authenticatable
         return $this->hasMany(Conversation::class, 'owner_id');
     }
 
+    public function getConversationWith(User $other_user): ?int {
+        $conversation = Conversation::where('is_group', false)
+            ->whereHas('participants', function($q) {
+                $q->where('user_id', $this->id);
+            })
+            ->whereHas('participants', function($q) use ($other_user) {
+                $q->where('user_id', $other_user->id);
+            })
+            ->withCount('participants')
+            ->having('participants_count', 2)
+            ->first();
+
+        return $conversation?->id;
+    }
+
     public function wave(){
         return $this->hasOne(Wave::class);
     }

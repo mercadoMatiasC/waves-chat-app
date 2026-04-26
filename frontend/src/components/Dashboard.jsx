@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 export function Dashboard(){
     const icon_size = 100;
-    const icon_class = "drop-shadow-xl drop-shadow-black hover:-translate-y-1 hover:cursor-pointer ease-in-out duration-200";
+    const icon_class = "drop-shadow-xl drop-shadow-black hover:-translate-y-1 hover:drop-shadow-sky-600/40 hover:cursor-pointer duration-200";
 
     return (
-        <main className="flex flex-col w-full h-full bg-[#141414]/95 items-center justify-center rounded-xl drop-shadow-lg drop-shadow-black">
+        <main className="flex flex-col w-full h-full bg-black/90 items-center justify-center rounded-xl backdrop-blur-sm">
             <h1 className="text-2xl font-light mb-5">
                 Welcome to <span id="waves-sign">Waves</span>!
             </h1>

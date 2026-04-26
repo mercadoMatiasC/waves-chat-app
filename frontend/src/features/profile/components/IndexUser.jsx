@@ -5,6 +5,7 @@ import { MutationMessages } from "../../../components/MutationMessages";
 import { useDeleteRequest } from "../../friends/hooks/useDeleteRequest";
 import { useSendRequest } from "../../friends/hooks/useSendRequest";
 import { useAcceptRequest } from "../../friends/hooks/useAcceptRequest";
+import { Link } from "react-router-dom";
 
 export function IndexUser({ user, is_request = false, received = false }){
     const storeRequestMutation = useSendRequest();
@@ -32,10 +33,10 @@ export function IndexUser({ user, is_request = false, received = false }){
             <MutationMessages mutation={activeMutation} />
 
             <div className='flex flex-row w-full justify-between bg-[#242424] p-3 rounded-2xl items-center hover:translate-x-1 hover:bg-[#202020] transition-all duration-100'>
-                <div className="flex items-center gap-3">
+                <Link to={`/Users/${user.id}`} className="flex items-center gap-3">
                     <img src={user?.profile_image_route || "/brand/icons/avatar.webp"} width={54} className="rounded-full aspect-square object-cover" alt="avatar" />
                     <h2>{user.username}</h2>
-                </div>
+                </Link>
 
                 <div className="flex gap-3">
                     {is_request ? (

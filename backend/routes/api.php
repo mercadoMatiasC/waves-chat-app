@@ -12,9 +12,10 @@ use Illuminate\Support\Facades\Route;
     Route::middleware(['auth:sanctum'])->group(function () {
         //-- PROFILE --
         Route::controller(ProfileController::class)->group(function () {
-            Route::get   ('/users', 'index'); // -- NEW ENDPOINT --
             Route::get   ('/me', 'myself');
             Route::patch ('/me', 'update');
+            Route::get   ('/users', 'index');       // -- NEW ENDPOINT --
+            Route::get   ('/users/{user}', 'show'); // -- NEW ENDPOINT --
         });
 
         //-- 🌊 WAVES --
@@ -40,6 +41,7 @@ use Illuminate\Support\Facades\Route;
             Route::get   ('chats', 'index');
             Route::patch ('chats/{conversation}', 'update');
             Route::get   ('chats/{conversation}', 'show'); // -- MODIFIED ENDPOINT --
+
         });
 
         //-- MESSAGES --

@@ -60,7 +60,7 @@ export function ProfileForm({ user = null }){
     return (
         <div className={`flex flex-col w-full justify-center ${is_edit ? '' : 'min-h-[calc(100vh-64px)]'} lg:w-auto`}>
             <form onSubmit={handleSubmit} className="p-5 space-y-5">
-                <h1 className="text-xl my-5">
+                <h1 className="text-xl my-5 font-light">
                     {is_edit ? (
                         <p>Update your information</p>
                     ) : (

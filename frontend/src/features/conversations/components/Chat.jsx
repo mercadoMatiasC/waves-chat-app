@@ -6,7 +6,7 @@ export function Chat({ chat }){
     const latest_message_time = latest_message ? (new Date(latest_message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })) : null;
 
     return (
-        <Link to={`/chats/${chat.id}`} className='flex flex-row w-full justify-between bg-[#242424] p-3 rounded-2xl items-center hover:translate-x-1 hover:bg-[#202020] ease-in-out duration-100'>
+        <Link to={`/Chats/${chat.id}`} className='flex flex-row w-full justify-between bg-[#242424] p-3 rounded-2xl items-center hover:translate-x-1 hover:bg-[#202020] ease-in-out duration-100'>
             <div className="flex flex-row gap-3 items-center">
                 <img src={other_user?.profile_image_route || "/brand/icons/avatar.webp"} width={54} className="rounded-full aspect-square object-cover" alt={`${other_user?.username}'s avatar`} />
 

@@ -32,6 +32,18 @@ class ProfileController extends Controller
         return UserIndexResource::collection($users);
     }
 
+    public function show(User $user) {
+        $me = Auth::user();
+        $can_see_wave = $me->id === $user->id || $me->isFriendsWith($user);
+
+        if ($can_see_wave)
+            $user->load('wave');
+        else
+            $user->unsetRelation('wave');
+
+        return new UserShowResource($user);
+    }
+
     public function myself() {
         $user = Auth::user()->load('wave');
 

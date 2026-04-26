@@ -35,10 +35,16 @@ button{
     padding: 6px 15px 6px 15px;
     border-radius: 12px;
     background-color: rgb(14, 14, 14);
+    opacity: 0.9;
+    transition-duration: 200ms;
 }
 
 button:hover{
     cursor: pointer;
+    translate: 0px -1px;
+    opacity: 1;
+    transition-duration: 200ms;
+    filter: drop-shadow(0px 5px 4px rgb(0, 0, 0));
 }
 
 /* SCROLLBAR STYLE */
