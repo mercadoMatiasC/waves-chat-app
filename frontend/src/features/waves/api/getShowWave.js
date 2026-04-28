@@ -1,7 +1,7 @@
 import { API_URL } from "../../../constants/api";
 
-export async function fetchUsers() {
-  const res = await fetch(`${API_URL}/users`, {
+export async function fetchShowWave(user_id) {
+  const res = await fetch(`${API_URL}/users/${user_id}/wave`, {
     method: "GET",
     headers: {
       "Accept": "application/json",
@@ -13,5 +13,5 @@ export async function fetchUsers() {
   if (!res.ok)
     throw new Error("Unauthorized");
 
-  return await res.json(); 
+  return await res.json();
 }

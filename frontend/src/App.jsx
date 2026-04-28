@@ -12,8 +12,9 @@ import { Login } from './features/profile/pages/Login';
 import { Logout } from './features/profile/pages/Logout';
 import { Me } from './features/profile/pages/Me';
 import { Register } from './features/profile/pages/Register';
-import { UsersFriends } from './features/profile/pages/UsersFriends';
-import { UserProfile } from './features/profile/pages/UserProfile';
+import { UsersIndex } from './features/profile/pages/UsersIndex';
+import { UsersShow } from './features/profile/pages/UserShow';
+import { WavesShow } from './features/waves/pages/WavesShow';
 
 export default function App() {
   return (
@@ -35,11 +36,14 @@ export default function App() {
           
           {/* -- PROFILE -- */}
           <Route path="/Users">
-            <Route index element={<UsersFriends />} />
-            <Route path=":id" element={<UserProfile />} />
+            <Route index element={<UsersIndex />} />
+            <Route path=":id" element={<UsersShow />} />
           </Route>
           <Route path="/Me" element={<Me />} />
           <Route path="/Logout" element={<Logout />} />
+
+          {/* -- WAVES -- */}
+          <Route path="/Users/:id/Wave" element={<WavesShow />} />
         </Route>
       </Route>
     </Routes>

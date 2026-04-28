@@ -10,7 +10,7 @@ export function Dashboard(){
                 Welcome to <span id="waves-sign">Waves</span>!
             </h1>
             <div className="grid grid-cols-2 gap-10">
-                <img src="/brand/icons/waves-icon.webp" width={icon_size} alt="Waves icon" className={icon_class} />
+                {/* <img src="/brand/icons/waves-icon.webp" width={icon_size} alt="Waves icon" className={icon_class} /> */}
                 <Link to="/Users" className="font-light hover:text-white/75">
                     <img src="/brand/icons/add-friend-icon.webp" width={icon_size} alt="Add a friend icon" className={icon_class} />
                 </Link>

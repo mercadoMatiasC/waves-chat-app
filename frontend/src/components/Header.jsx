@@ -9,7 +9,7 @@ export function Header(){
     const nav_class = `${!menuStatus ? "hidden" : "flex flex-col"} bg-[#050505]/50 backdrop-blur-sm p-3 lg:flex lg:flex-col lg:p-0 lg:bg-black/0`;
 
     const nav_items = [
-        { to: "/", icon: "waves-icon.webp", label: "Waves" },
+        /*{ to: "/", icon: "waves-icon.webp", label: "Waves" },*/
         { to: "/Users", icon: "add-friend-icon.webp", label: "Add a friend" },
         { to: "/Me", icon: "avatar.webp", label: "My profile" },
         { to: "/Logout", icon: "logout-icon.webp", label: "Log out" },
@@ -17,7 +17,7 @@ export function Header(){
 
     return (
         <header className="flex flex-col w-screen text-white bg-[#181818] justify-between items-center py-1 h-16 lg:p-3 lg:flex-col lg:h-screen lg:w-[4%]">
-            <div className="flex justify-between w-full items-center px-3 lg:px-0">
+            <div className="flex justify-between h-full w-full items-center px-3 lg:h-auto lg:px-0">
                 <Link to="/">
                     <img src="/brand/mini-logo.webp" width={64} alt="Waves mini logo" className="hover:drop-shadow-xl drop-shadow-amber-400 ease-in-out duration-200" />
                 </Link>

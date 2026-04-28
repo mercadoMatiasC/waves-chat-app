@@ -5,7 +5,7 @@ import { useSentRequests } from "../../friends/hooks/useSentRequests";
 import { LoadingScreen } from "../../../components/LoadingScreen";
 import { Divider } from "../../../components/Divider"
 
-export function UsersFriends(){
+export function UsersIndex(){
     const { data: receivedRequests, isLoading: receivedIsLoading, error: receivedError } = useReceivedRequests();
     const { data: sentRequests, isLoading: sentIsLoading, error: sentError } = useSentRequests();
     
