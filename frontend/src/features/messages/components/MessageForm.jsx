@@ -1,35 +1,28 @@
-import { useState } from "react";
 import { useStoreMessage } from "../hooks/useStoreMessage";
 
 //SVGS
 import { Plus } from "../../../components/SVGS/Plus";
 import { Chevron } from "../../../components/svgs/Chevron";
 
-export function MessageForm({ chat_id, my_id, setAttachmentsMenu, attachmentsMenu }) {
+export function MessageForm({ chat_id, my_id, setAttachmentsMenu, attachmentsMenu, messageText, setMessageText }) {
     const storeMessageMutation = useStoreMessage(chat_id);
 
-    const [formData, setFormData] = useState({
-        text_body: "",
-        sender_id: my_id
-    });
-
     function handleChange(e) {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setMessageText(e.target.value);
     }
 
     function handleSubmit(e) {
         e.preventDefault();
+        if (!messageText.trim()) return;
 
-        setFormData(prev => ({ 
-                ...prev, 
-                text_body: "" 
-        }));
+        storeMessageMutation.mutate({ 
+            data: {
+                text_body: messageText,
+                sender_id: my_id
+            } 
+        });
 
-        if (!formData.text_body.trim()) 
-            return;
-
-        storeMessageMutation.mutate({ data: formData });
+        setMessageText("");
     }
 
     return (
@@ -38,7 +31,7 @@ export function MessageForm({ chat_id, my_id, setAttachmentsMenu, attachmentsMen
                 <Plus />
             </button>
 
-            <input type="text" name="text_body" value={formData.text_body} onChange={handleChange} placeholder="Write a message..." required className="w-full bg-[#303030] placeholder:font-light p-3 rounded-2xl focus:outline-none" />
+            <input type="text" name="text_body" value={messageText} onChange={handleChange} placeholder="Write a message..." required className="w-full bg-[#303030] placeholder:font-light p-3 rounded-2xl focus:outline-none" />
 
             <button type="submit" className="flex hover:cursor-pointer px-4 py-3" disabled={storeMessageMutation.isPending} style={{ backgroundImage: `url('/brand/svgs/blob-button.svg')`, backgroundSize: 'cover'}}>
                 <Chevron />

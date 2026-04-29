@@ -11,6 +11,7 @@ import { useState } from "react";
 
 export function ConversationShow() {
     const { id } = useParams();
+    const [messageText, setMessageText] = useState("");
     const [attachmentsMenu, setAttachmentsMenu] = useState(false);
     const { data: me, meIsLoading, meError } = useMe();
     const { data: showChatData, isLoading, error } = useShowChat(id);
@@ -38,10 +39,10 @@ export function ConversationShow() {
                 <ChatHeader chat={showChatData} />
 
                 {/* -- ACTUAL MESSAGES -- */}
-                <MainMessageContainer messages={messages} messagesPagination={messagesPagination} me={me} attachmentsMenu={attachmentsMenu} />
+                <MainMessageContainer messages={messages} messagesPagination={messagesPagination} me={me} attachmentsMenu={attachmentsMenu} onEmojiSelect={(emoji) => setMessageText(prev => prev + emoji)} />
 
                 {/* -- MESSAGE SEND FORM -- */}
-                <MessageForm chat_id={id} my_id={me?.data.id} setAttachmentsMenu={setAttachmentsMenu} attachmentsMenu={attachmentsMenu} />          
+                <MessageForm chat_id={id} my_id={me?.data.id} messageText={messageText} setMessageText={setMessageText} setAttachmentsMenu={setAttachmentsMenu} attachmentsMenu={attachmentsMenu} />          
             </section>
         </main>
     );

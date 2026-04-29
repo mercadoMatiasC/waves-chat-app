@@ -24,6 +24,7 @@ export function Message({ message, is_mine }) {
                     <span className={`${(is_mine && (showMobileMenu || editMessage)) ? 'flex' : 'hidden'} group-hover:flex text-[14px] hover:underline`} onClick={(e) => {e.stopPropagation(); setEditMessage(true); }}>
                         Edit
                     </span>
+                    <span className={`${is_edited ? 'flex' : 'hidden' } ${is_mine && 'group-hover:hidden' } text-[12px]`}>edited</span>
                 </p>
             </div>
 
