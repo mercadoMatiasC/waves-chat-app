@@ -3,6 +3,7 @@ import App from './App.jsx'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import { SVGDefinitions } from './SVGDefinitions.jsx'
 
 const queryClient = new QueryClient();
 
@@ -10,6 +11,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <SVGDefinitions />
         <App />
       </BrowserRouter>
     </QueryClientProvider>

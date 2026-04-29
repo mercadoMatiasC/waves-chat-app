@@ -30,8 +30,8 @@ input[type="search"],input[type="text"],input[type="email"],input[type="password
     color: transparent;
 }
 
-/* BUTTON STYLE */
-button{
+/* MAIN BUTTON STYLE */
+.main-button{
     padding: 6px 15px 6px 15px;
     border-radius: 12px;
     background-color: rgb(14, 14, 14);
@@ -39,7 +39,7 @@ button{
     transition-duration: 200ms;
 }
 
-button:hover{
+.main-button:hover{
     cursor: pointer;
     translate: 0px -1px;
     opacity: 1;

@@ -103,7 +103,7 @@ export function ProfileForm({ user = null }){
                         </Link>
                     )}
 
-                    <button disabled={mutation.isPending} type="submit" className="border-2 border-sky-700">
+                    <button disabled={mutation.isPending} type="submit" className="main-button border-2 border-sky-700">
                         {is_edit ? 'Update' : 'Register'}
                     </button>
                 </div>

@@ -24,7 +24,7 @@ export function UsersShow(){
                         <>
                             <p className="font-light text-lg p-3">You and <span className="font-bold">{user_data.username}</span> are friends</p>
                             <Link to={`/Chats/${user_data.chat_id}`} >
-                                <button className="border-2 border-sky-700">
+                                <button className="main-button border-2 border-sky-700">
                                     Go to chat
                                 </button>
                             </Link>

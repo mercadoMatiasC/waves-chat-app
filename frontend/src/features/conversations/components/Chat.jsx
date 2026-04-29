@@ -10,9 +10,11 @@ export function Chat({ chat }){
             <div className="flex flex-row gap-3 items-center">
                 <img src={other_user?.profile_image_route || "/brand/icons/avatar.webp"} width={54} className="rounded-full aspect-square object-cover" alt={`${other_user?.username}'s avatar`} />
 
-                <div className="flex flex-col">
-                    <h2>{other_user.username} {other_user.active_status && (<span className="text-xl text-green-400 font-bold">o</span>)}</h2>
-                    <p className="text-sm font-light">
+                <div className="flex flex-col max-w-[60vw] lg:max-w-[15vw]">
+                    <h2 className="font-light text-lg">
+                        {other_user.username} {other_user.active_status && (<span className="text-xl text-green-400 font-bold">o</span>)}
+                    </h2>
+                    <p className="text-sm font-light text-white/50 truncate">
                         {latest_message?.text}
                     </p>
                 </div>

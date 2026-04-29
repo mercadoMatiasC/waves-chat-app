@@ -1,9 +1,15 @@
 import { Message } from "../../messages/components/Message";
+import { AttachmentsMenu } from "./AttachmentsMenu";
 
-export function MainMessageContainer({ messages, messagesPagination, me}){
+export function MainMessageContainer({ messages, messagesPagination, me, attachmentsMenu}){
+
     return (
         <div id="chat-message-container" className="relative flex-1 min-h-0 w-full overflow-hidden">
+            
             <div className="absolute inset-0 flex flex-col-reverse gap-3 p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-sky-700 scrollbar-track-transparent items-center">
+                {/* ATTACHMENTS MENU */}
+                <AttachmentsMenu attachmentsMenu={attachmentsMenu} />
+
                 {messages.length > 0 ? (
                     <>
                         {messages.map((item, index) => (

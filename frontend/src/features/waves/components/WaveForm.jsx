@@ -69,7 +69,7 @@ export function WaveForm({ wave = null }){
                 <div className={`flex ${(updateWaveMutation.isError || updateWaveMutation.isSuccess) ? 'justify-between' : 'justify-end'} items-start`}>
                     {/* -- MUTATION MESSAGES -- */}
                     <MutationMessages mutation={updateWaveMutation} />
-                    <button disabled={updateWaveMutation.isPending} type="submit" className="border-2 border-sky-700">
+                    <button disabled={updateWaveMutation.isPending} type="submit" className="main-button border-2 border-sky-700">
                         Update
                     </button>
                 </div>

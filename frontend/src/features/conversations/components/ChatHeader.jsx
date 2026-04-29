@@ -15,10 +15,10 @@ export function ChatHeader({ chat }){
                 </Link>
 
                 <Link to={`/Users/${other_end_user.id}`} className="flex items-center gap-3">
-                    <img src="/brand/icons/avatar.webp" width={56} alt="Profile avatar" />
+                    <img src="/brand/icons/avatar.webp" width={58} alt="Profile avatar" />
 
-                    <div className="flex flex-col space-y-1">
-                        <h1 className="text-lg lg:text-xl">{chat_name}</h1>
+                    <div className="flex flex-col">
+                        <h1 className="text-lg lg:text-xl font-light">{chat_name}</h1>
                         <p className="font-light">{other_end_user.active_status ? "Online" : "Offline"}</p>
                     </div>
                 </Link>

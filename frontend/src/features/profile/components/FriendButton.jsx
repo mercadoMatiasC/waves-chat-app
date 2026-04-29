@@ -7,7 +7,7 @@ export function FriendButton({ onClick, label, hoverColor, isLoading }) {
     };
 
     return (
-        <button onClick={onClick} disabled={isLoading} className={`border-2 px-4 py-2 rounded-xl transition-all duration-200 disabled:opacity-50 ${color_classes[hoverColor]}`}>
+        <button onClick={onClick} disabled={isLoading} className={`border-2 px-4 py-2 rounded-xl transition-all duration-200 disabled:opacity-50 hover:cursor-pointer ${color_classes[hoverColor]}`}>
             {isLoading ? "..." : label}
         </button>
     );

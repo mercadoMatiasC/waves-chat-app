@@ -7,9 +7,11 @@ import { useChatMessages } from "../hooks/useChatMessages";
 import { useMe } from "../../profile/hooks/useMe";
 import { MainMessageContainer } from "../components/MainMessagesContainer";
 import { LoadingScreen } from "../../../components/LoadingScreen";
+import { useState } from "react";
 
 export function ConversationShow() {
     const { id } = useParams();
+    const [attachmentsMenu, setAttachmentsMenu] = useState(false);
     const { data: me, meIsLoading, meError } = useMe();
     const { data: showChatData, isLoading, error } = useShowChat(id);
     
@@ -36,10 +38,10 @@ export function ConversationShow() {
                 <ChatHeader chat={showChatData} />
 
                 {/* -- ACTUAL MESSAGES -- */}
-                <MainMessageContainer messages={messages} messagesPagination={messagesPagination} me={me} />
+                <MainMessageContainer messages={messages} messagesPagination={messagesPagination} me={me} attachmentsMenu={attachmentsMenu} />
 
                 {/* -- MESSAGE SEND FORM -- */}
-                <MessageForm chat_id={id} my_id={me?.data.id} />          
+                <MessageForm chat_id={id} my_id={me?.data.id} setAttachmentsMenu={setAttachmentsMenu} attachmentsMenu={attachmentsMenu} />          
             </section>
         </main>
     );

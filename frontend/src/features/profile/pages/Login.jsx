@@ -46,7 +46,7 @@ export function Login(){
                         <p>New to Waves? Register here</p>
                     </Link>
 
-                    <button type="submit" className="border-2 border-green-600">
+                    <button type="submit" className="main-button border-2 border-green-600">
                         Login
                     </button>
                 </div>
