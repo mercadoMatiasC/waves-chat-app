@@ -1,8 +1,7 @@
 import { Message } from "../../messages/components/Message";
 import { AttachmentsMenu } from "./AttachmentsMenu";
 
-export function MainMessageContainer({ messages, messagesPagination, me, attachmentsMenu, onEmojiSelect}){
-
+export function MainMessageContainer({ messages, isGroup, participants, messagesPagination, me, attachmentsMenu, onEmojiSelect}){
     return (
         <div id="chat-message-container" className="relative flex-1 min-h-0 w-full overflow-hidden">
             
@@ -13,7 +12,7 @@ export function MainMessageContainer({ messages, messagesPagination, me, attachm
                 {messages.length > 0 ? (
                     <>
                         {messages.map((item, index) => (
-                            <Message key={item.id || index} message={item} is_mine={item.sender_id === me?.data.id} />
+                            <Message key={item.id || index} isGroup={isGroup} message={item} is_mine={item.sender_id === me?.data.id} sender={participants.find(u => u.id === item.sender_id)} />
                         ))}
 
                         {messagesPagination.hasNextPage && (

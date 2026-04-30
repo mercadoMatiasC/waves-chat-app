@@ -34,7 +34,7 @@ export function IndexUser({ user, is_request = false, received = false }){
 
             <div className='flex flex-row w-full justify-between bg-[#242424] p-3 rounded-2xl items-center hover:translate-x-1 hover:bg-[#202020] transition-all duration-100'>
                 <Link to={`/Users/${user.id}`} className="flex items-center gap-3">
-                    <img src={user?.profile_image_route || "/brand/icons/avatar.webp"} width={54} className="rounded-full aspect-square object-cover" alt="avatar" />
+                    <img src={user?.profile_image_route || "/brand/icons/avatar.webp"} width={64} height={64} className="rounded-full aspect-square object-cover" alt={`${user?.username}'s avatar`} />
                     <h2>{user.username}</h2>
                 </Link>
 

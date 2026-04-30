@@ -6,7 +6,9 @@ use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserIndexResource;
 use App\Http\Resources\UserShowResource;
 use App\Models\User;
+use App\Services\ImageService;
 use App\Services\UserService;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -50,8 +52,23 @@ class ProfileController extends Controller
         return (new UserShowResource($user));
     }
 
-    public function update(UserRequest $request, UserService $service) {
-        $user = $service->updateProfile($request->validated(), Auth::user());
+    public function update(UserRequest $request, UserService $user_service, ImageService $image_service) {
+        $user = Auth::user();
+        $data = $request->validated();
+
+        if ($request->hasFile('logo_file')) {
+            $newFilename = "{$user->id}.png";
+            
+            $path = $image_service->profileImageProcess(
+                file: $request->file('logo_file'),
+                filename: $newFilename,
+                deletePath: $user->profile_image_route,
+            );
+
+            $data['profile_image_route'] = $path;
+        }    
+
+        $user = $user_service->updateProfile(Arr::except($data, ['logo_file']), $user);
 
         return (new UserShowResource($user))->response()->setStatusCode(200);
     }

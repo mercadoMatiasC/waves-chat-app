@@ -9,7 +9,7 @@ class UserIndexResource extends JsonResource{
         return [
             'id' => $this->id,
             "username" => $this->username,
-            "profile_image_route" => $this->profile_image_route ? url($this->profile_image_route) : null,
+            'profile_image_route' => $this->profile_image_route ? asset('storage/' . $this->profile_image_route) : null,
             'wave' => (new WaveIndexResource($this->whenLoaded('wave'))),
             "active_status" => $this->active_status,
             "is_admin" => $this->is_admin,

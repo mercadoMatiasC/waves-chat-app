@@ -15,6 +15,7 @@ import { Register } from './features/profile/pages/Register';
 import { UsersIndex } from './features/profile/pages/UsersIndex';
 import { UsersShow } from './features/profile/pages/UserShow';
 import { WavesShow } from './features/waves/pages/WavesShow';
+import { ConversationCreate } from './features/conversations/pages/ConversationCreate';
 
 export default function App() {
   return (
@@ -31,7 +32,8 @@ export default function App() {
           {/* -- CONVERSATIONS -- */}
           <Route path="/Chats">
             <Route index element={<ConversationsIndex />} />
-            <Route path=":id" element={<ConversationShow />} />            
+            <Route path=":id" element={<ConversationShow />} /> 
+            <Route path="Create" element={<ConversationCreate />} />           
           </Route>
           
           {/* -- PROFILE -- */}

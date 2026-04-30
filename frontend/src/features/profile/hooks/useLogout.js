@@ -8,15 +8,17 @@ export function useLogout() {
 
   return useMutation({
     mutationFn: logout,
+    
     onSuccess: () => {
       queryClient.clear(); 
       console.log('Successfully logged out');
-      
       navigate('/Login', { replace: true }); 
     },
+    
     onError: (error) => {
-      console.error("Logout failed:", error);
-      navigate('/Login');
+      console.error("Logout failed, but clearing local session anyway:", error);
+      queryClient.clear(); 
+      navigate('/Login', { replace: true });
     }
   });
 }

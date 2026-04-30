@@ -3,6 +3,7 @@ import { useRegister } from "../hooks/useRegister";
 import { Link } from "react-router-dom";
 import { useUpdateUser } from "../hooks/useUpdateUser";
 import { MutationMessages } from "../../../components/MutationMessages";
+import { InputFile } from "../../../components/forms/InputFile";
 
 export function ProfileForm({ user = null }){
     const updateUserMutation = useUpdateUser();
@@ -16,7 +17,9 @@ export function ProfileForm({ user = null }){
         password: "",
         password_confirmation: "",
         username: user?.username ||  "",
-        description: user?.description || ""
+        description: user?.description || "",
+        profile_image_route: user.profile_image_route || "",
+        logo_file: null,
     });
 
     function handleChange(e) {
@@ -32,18 +35,45 @@ export function ProfileForm({ user = null }){
         });
     }
 
+    function handleFileChange(e) {
+        const file = e.target.files[0];
+        if (file) 
+        setFormData(prev => ({
+            ...prev,
+            logo_file: file,
+            profile_image_route: URL.createObjectURL(file) 
+        }));
+
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
 
-        //REMOVE EMPTY FIELDS
-        const filteredData = Object.fromEntries(
-            Object.entries(formData).filter(([_, value]) => value !== "")
-        );
+        const dataToSend = new FormData();
 
-        if (is_edit)
-            mutation.mutate({ id: user.id, data: filteredData });
-        else
-            mutation.mutate({ data: filteredData });
+        Object.entries(formData).forEach(([key, value]) => {
+            if (key === 'profile_image_route')
+                return;
+
+            if (key === 'logo_file') {
+                if (value instanceof File)
+                    dataToSend.append(key, value);
+                return;
+            }
+
+            if (value !== "" && value !== null && value !== undefined)
+                dataToSend.append(key, value);
+        });
+
+        if (is_edit) {
+            dataToSend.append("_method", "PATCH");
+            mutation.mutate({ 
+                id: user.id, 
+                data: dataToSend 
+            });
+        } else {
+            mutation.mutate({ data: dataToSend });
+        }
     }
 
     useEffect(() => {
@@ -53,13 +83,15 @@ export function ProfileForm({ user = null }){
                 password: "",
                 password_confirmation: "",
                 username: user.username,
-                description: user.description
+                description: user.description,
+                profile_image_route: user.profile_image_route,
+                logo_file: null,
             });
     }, [user]);
 
     return (
         <div className={`flex flex-col w-full justify-center ${is_edit ? '' : 'min-h-[calc(100vh-64px)]'} lg:w-auto`}>
-            <form onSubmit={handleSubmit} className="p-5 space-y-5">
+            <form onSubmit={handleSubmit} className="p-5 space-y-5" encType="multipart/form-data">
                 <h1 className="text-xl my-5 font-light">
                     {is_edit ? (
                         <p>Update your information</p>
@@ -74,7 +106,6 @@ export function ProfileForm({ user = null }){
 
                     <label htmlFor="register-password">Password</label>
                     <input id="register-password" type="password" name="password" value={formData.password} onChange={handleChange} className="w-full bg-[#303030] placeholder:font-light p-3 rounded-2xl focus:outline-none" />
-
 
                     {formData.password && (
                         <>
@@ -91,6 +122,12 @@ export function ProfileForm({ user = null }){
 
                     <label htmlFor="register-description">Description</label>
                     <input id="register-description" type="text" name="description" onChange={handleChange} value={formData.description} className="w-full bg-[#303030] placeholder:font-light p-3 rounded-2xl focus:outline-none" />
+                
+                    <label htmlFor="logo_file">Profile avatar</label>
+                    <div className="flex items-center gap-4">
+                        <img src={formData.profile_image_route || "/brand/icons/avatar.webp"} className="w-16 h-16 rounded-full object-cover border-2 border-sky-700" alt="Preview" />
+                        <InputFile name="logo_file" onChange={handleFileChange} />
+                    </div>
                 </div>
 
                 {/* -- MUTATION MESSAGES -- */}

@@ -1,13 +1,14 @@
 import { API_URL } from "../../../constants/api";
 
-export async function updateUser(id, data) {
-  const res = await fetch(`${API_URL}/me`, {
-    method: "POST",
+export async function updateGroup(id, data) {
+  const res = await fetch(`${API_URL}/chats/${id}`, {
+    method: "PATCH",
     headers: {
       "Accept": "application/json",
+      "Content-Type": "application/json",
     },
     credentials: "include",
-    body: data,
+    body: JSON.stringify(data),
   });
 
   const json = await res.json();

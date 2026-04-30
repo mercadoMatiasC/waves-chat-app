@@ -31,9 +31,17 @@ export function Login(){
     }
 
     return (
-        <div className="flex flex-col w-full bg-[#141414] justify-center min-h-[calc(100vh-64px)] lg:h-full lg:w-auto">
-            <form onSubmit={handleSubmit} className="p-5 space-y-6">
-                <h1 className="text-xl font-light">Welcome back!</h1>
+        <div className="flex flex-col h-screen w-full bg-[#141414] lg:w-auto justify-between pb-5">
+            <div id="colorful_divider" />
+
+            <form onSubmit={handleSubmit} className="p-7 space-y-6">
+                <div className="flex items-center justify-between">
+                    <h1 className="text-xl font-light">Welcome back!</h1>
+                    <span className="flex items-center">
+                        <img src="/brand/mini-logo.webp" width={64} alt="waves-logo" />
+                        <h1 id="waves-sign" className="text-xl text-end">Waves</h1>
+                    </span>
+                </div>
 
                 <label htmlFor="login-email">Email</label>
                 <input id="login-email" type="email" name="email" onChange={handleChange} className="w-full bg-[#303030] placeholder:font-light p-3 rounded-2xl focus:outline-none" />

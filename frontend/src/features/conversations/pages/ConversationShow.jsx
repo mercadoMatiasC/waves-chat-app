@@ -37,9 +37,9 @@ export function ConversationShow() {
             <section key={id} className="flex flex-col w-full h-full overflow-hidden justify-between backdrop-blur-sm backdrop-brightness-80 lg:w-[70%] lg:rounded-xl lg:pl-2">
                 {/* -- CHAT HEAD INFORMATION -- */}
                 <ChatHeader chat={showChatData} />
-
+                
                 {/* -- ACTUAL MESSAGES -- */}
-                <MainMessageContainer messages={messages} messagesPagination={messagesPagination} me={me} attachmentsMenu={attachmentsMenu} onEmojiSelect={(emoji) => setMessageText(prev => prev + emoji)} />
+                <MainMessageContainer messages={messages} isGroup={showChatData.data.is_group} participants={showChatData.data.participants} messagesPagination={messagesPagination} me={me} attachmentsMenu={attachmentsMenu} onEmojiSelect={(emoji) => setMessageText(prev => prev + emoji)} />
 
                 {/* -- MESSAGE SEND FORM -- */}
                 <MessageForm chat_id={id} my_id={me?.data.id} messageText={messageText} setMessageText={setMessageText} setAttachmentsMenu={setAttachmentsMenu} attachmentsMenu={attachmentsMenu} />          

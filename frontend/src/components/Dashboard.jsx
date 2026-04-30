@@ -22,6 +22,10 @@ export function Dashboard(){
                 <Link to="/Logout">
                     <img src="/brand/icons/logout-icon.webp" width={icon_size} alt="Log out icon" className={icon_class} />
                 </Link>
+
+                <Link to="/">
+                    <img src="/brand/icons/create-group-icon.webp" width={icon_size} alt="Create a group" className={icon_class} />
+                </Link>
             </div>
         </main>
     );

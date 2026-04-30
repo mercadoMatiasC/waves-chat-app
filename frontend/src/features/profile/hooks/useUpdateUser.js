@@ -11,23 +11,18 @@ export function useUpdateUser() {
       await queryClient.cancelQueries(["user", id]);
       const previous_user = queryClient.getQueryData(["user", id]);
 
+      const updatedFields = Object.fromEntries(data.entries());
+
       queryClient.setQueryData(["user", id], old => ({
         ...old,
-        ...data
+        ...updatedFields
       }));
 
-      queryClient.setQueryData(["user"], old => { //UPDATE LIST
-        if (!old?.data) 
-            return old;
-
+      queryClient.setQueryData(["me"], old => {
+        if (!old?.data) return old;
         return {
           ...old,
-          data: old.data.map(g =>
-            g.id === id ? { 
-              ...g, 
-              ...data } 
-            : g
-          )
+          data: { ...old.data, ...updatedFields }
         };
       });
 
@@ -43,6 +38,7 @@ export function useUpdateUser() {
 
       queryClient.invalidateQueries(["users"]); //STALING USERS LIST QUERY
       queryClient.invalidateQueries(["user", id]);
+      queryClient.invalidateQueries(["me"]);
     },
 
     onSuccess: () => {

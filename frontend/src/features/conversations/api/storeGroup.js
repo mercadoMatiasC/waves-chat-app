@@ -1,15 +1,12 @@
 import { API_URL } from "../../../constants/api"
 
-export async function register(data) {
-  await fetch(`${API_URL.replace('/api', '')}/sanctum/csrf-cookie`, {
-    credentials: "include",
-  });
-
-  const res = await fetch(`${API_URL}/register`, {
+export async function storeGroup(data) {
+  const res = await fetch(`${API_URL}/chats`, {
     method: "POST",
     headers: {
       "Accept": "application/json",
     },
+    credentials: "include",
     body: data,
   });
 
