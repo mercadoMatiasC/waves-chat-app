@@ -52,18 +52,17 @@ input{
     filter: drop-shadow(0px 5px 4px rgb(0, 0, 0));
 }
 
-/* SCROLLBAR STYLE */
+/* MESSAGE SCROLLBAR STYLE */
 #chat-message-container {scrollbar-color: transparent;}
 #chat-message-container ::-webkit-scrollbar {width: 0px}
 #chat-message-container ::-webkit-scrollbar-track {background: transparent}
 #chat-message-container ::-webkit-scrollbar-thumb {background: transparent}
 #chat-message-container ::-webkit-scrollbar-thumb:hover {background: transparent}
 
-#colorful_divider{
-    background: linear-gradient(to right, #13e3ff, #03fca9);
-    height: 6px;
-}
-
-#chat-list{
-    background: linear-gradient(to top, #001e27 0.1%, #141414 15%, #141414);
-}
+/* ACTUAL SCROLLBAR STYLE */
+.custom-scrollbar::-webkit-scrollbar {width: 5px;}
+.custom-scrollbar::-webkit-scrollbar-track {background: #141414;}
+.custom-scrollbar::-webkit-scrollbar-thumb {background: #303030;border-radius: 10px;}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {background: #404040;}
+#colorful_divider{background: linear-gradient(to right, #13e3ff, #03fca9); height: 6px;}
+#chat-list{background: linear-gradient(to top, #001e27 0.1%, #141414 15%, #141414);}

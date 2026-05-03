@@ -5,28 +5,26 @@ export function Chat({ chat }){
     const latest_message = chat.latest_message;
     const latest_message_time = latest_message ? (new Date(latest_message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })) : null;
 
-    console.log(other_user?.profile_image_route);
-
     return (
         <Link to={`/Chats/${chat.id}`} className='flex flex-row w-full justify-between bg-[#242424] p-3 rounded-2xl items-center hover:translate-x-1 hover:bg-[#202020] ease-in-out duration-100'>
             <div className="flex flex-row gap-3 items-center">
                 { other_user ? (
-                    <img src={other_user?.profile_image_route || "/brand/icons/avatar.webp"} width={64} height={64} className="rounded-full aspect-square object-cover" alt={`${other_user?.username}'s avatar`} />
+                    <img src={other_user?.profile_image_route || "/brand/icons/avatar.webp"} loading="lazy" width={64} height={64} className="rounded-full aspect-square object-cover" alt={`${other_user?.username}'s avatar`} />
                 ):(
-                    <img src="/brand/icons/group-icon.webp" width={64} height={64} className="rounded-full aspect-square object-cover" alt={`${chat.group_title}'s image`} />
+                    <img src="/brand/icons/group-icon.webp" loading="lazy" width={64} height={64} className="rounded-full aspect-square object-cover" alt={`${chat.group_title}'s image`} />
                 )}
                 <div className="flex flex-col max-w-[60vw] lg:max-w-[15vw]">
                     <h2 className="font-light text-lg">
                         { other_user ? (
                             <>
                                 <span>{other_user.username}</span> 
-                                <span className="text-xl text-green-400 font-bold">o</span>
+                                <span className="text-xl text-green-400 font-bold px-1">o</span>
                             </>
                         ):(
                             chat.group_title
                         )}
                     </h2>
-                    <p className="text-sm font-light text-white/50 truncate">
+                    <p className="font-light text-white/50 truncate">
                         {latest_message?.text}
                     </p>
                 </div>

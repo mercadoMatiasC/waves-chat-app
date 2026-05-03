@@ -18,7 +18,7 @@ export function ParticipantsModal({ participants, enabled, owner_id, setParticip
             <div className="flex flex-col w-[92%] p-4 bg-sky-600/50 shadow-xl shadow-black/50 gap-4 items-center lg:w-4/5">
                 <Link to={`/Users/${owner.id}`} className="flex w-full justify-between items-center gap-3">
                     <div className="flex w-full items-center gap-3">
-                        <img src={owner.profile_image_route ? owner.profile_image_route : "/brand/icons/avatar.webp" } width={64} className="rounded-full aspect-square object-cover" alt="Participant avatar" /> 
+                        <img src={owner.profile_image_route ? owner.profile_image_route : "/brand/icons/avatar.webp" } loading="lazy" width={64} className="rounded-full aspect-square object-cover" alt="Participant avatar" /> 
                         <p>{owner.username}</p>
                     </div>
                     <p>Owner</p>
@@ -28,7 +28,7 @@ export function ParticipantsModal({ participants, enabled, owner_id, setParticip
                     item.id != owner_id && (
                         <Link key={index} to={`/Users/${item.id}`} className="flex w-full justify-between items-center gap-3">
                             <div className="flex w-full items-center gap-3">
-                                <img src={item.profile_image_route ? item.profile_image_route : "/brand/icons/avatar.webp" } width={64} className="rounded-full aspect-square object-cover" alt="Participant avatar" /> 
+                                <img src={item.profile_image_route ? item.profile_image_route : "/brand/icons/avatar.webp" } loading="lazy" width={64} className="rounded-full aspect-square object-cover" alt="Participant avatar" /> 
                                 <p>{item.username}</p>
                             </div>
                         </Link>

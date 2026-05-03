@@ -14,7 +14,7 @@ class UserRequest extends FormRequest
         $userId = $this->user()->id;
 
         return [
-            'username' => ['sometimes', 'string', 'alpha_dash', 'max:30', "unique:users,username,{$userId}"],
+            'username' => ['sometimes', 'string', 'max:30', "unique:users,username,{$userId}"],
             'email'    => ['sometimes', 'email', "unique:users,email,{$userId}"],
             'description' => ['sometimes', 'nullable', 'string', 'max:160'],
             'password' => ['sometimes', 'confirmed', 'min:8'],

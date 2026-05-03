@@ -1,18 +1,5 @@
-import { API_URL } from "../../../constants/api";
+import { apiRequest } from "../../../utils/apiClient";
 
 export async function fetchReceivedRequests() {
-  const res = await fetch(`${API_URL}/friend-requests/received`, {
-    method: "GET",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-    },
-    credentials: "include", 
-  });
-
-  if (!res.ok)
-    throw new Error("Unauthorized");
-
-  const data = await res.json();
-  return data; 
+    return apiRequest(`/friend-requests/received`, { method: "GET" });
 }

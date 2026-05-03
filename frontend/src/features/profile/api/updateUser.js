@@ -1,19 +1,8 @@
-import { API_URL } from "../../../constants/api";
+import { apiRequest } from "../../../utils/apiClient";
 
 export async function updateUser(id, data) {
-  const res = await fetch(`${API_URL}/me`, {
-    method: "POST",
-    headers: {
-      "Accept": "application/json",
-    },
-    credentials: "include",
-    body: data,
-  });
-
-  const json = await res.json();
-
-  if (!res.ok) 
-    throw json;
-
-  return json;
+    return apiRequest("/me", { 
+        method: "POST", 
+        body: data 
+    });
 }

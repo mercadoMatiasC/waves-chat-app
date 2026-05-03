@@ -15,7 +15,7 @@ export function IndexFriend({ friend }){
             <MutationMessages mutation={deleteRequestMutation} />
             <div className='flex flex-row w-full justify-between bg-[#242424] p-3 rounded-2xl items-center hover:bg-[#202020] transition-all duration-100'>
                 <Link to={`/Users/${friend.id}`} className="flex items-center gap-3">
-                    <img src={friend?.profile_image_route || "/brand/icons/avatar.webp"} width={54} className="rounded-full aspect-square object-cover" alt="avatar" />
+                    <img src={friend?.profile_image_route || "/brand/icons/avatar.webp"} loading="lazy" width={54} className="rounded-full aspect-square object-cover" alt="avatar" />
                     <h2>{friend.username}</h2>
                 </Link>
 

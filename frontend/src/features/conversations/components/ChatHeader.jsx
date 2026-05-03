@@ -25,7 +25,7 @@ export function ChatHeader({ chat }) {
 
             <div className="flex items-center gap-2">
                 <Link to="/" className='p-0 hover:-translate-x-0.5 transition duration-200 lg:p-1'>
-                    <img src="/brand/svgs/rchevron.svg" width={32} alt="Exit chat" className="rotate-180" />
+                    <img src="/brand/svgs/rchevron.svg" loading="lazy" width={32} alt="Exit chat" className="rotate-180" />
                 </Link>
 
                 {isGroup ? (
@@ -61,7 +61,7 @@ export function ChatHeader({ chat }) {
 function ChatInfo({ image, title, status }) {
     return (
         <>
-            <img src={image} width={64} height={64} className="rounded-full aspect-square object-cover" alt={title} />
+            <img src={image} loading="lazy" width={64} height={64} className="rounded-full aspect-square object-cover" alt={title} />
             <div className="flex flex-col">
                 <h1 className="text-lg lg:text-xl font-light">{title}</h1>
                 {status && <p className="text-xs font-light text-emerald-400">{status}</p>}

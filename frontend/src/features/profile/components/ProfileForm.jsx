@@ -127,7 +127,7 @@ export function ProfileForm({ user = null }){
                         <>
                             <label htmlFor="logo_file">Profile avatar</label>
                             <div className="flex items-center gap-4">
-                                <img src={formData.profile_image_route || "/brand/icons/avatar.webp"} className="w-16 h-16 rounded-full object-cover border-2 border-sky-700" alt="Preview" />
+                                <img src={formData.profile_image_route || "/brand/icons/avatar.webp"} loading="lazy" className="w-16 h-16 rounded-full object-cover border-2 border-sky-700" alt="Preview" />
                                 <InputFile name="logo_file" onChange={handleFileChange} />
                             </div>
                         </>

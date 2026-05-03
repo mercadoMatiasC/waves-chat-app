@@ -16,7 +16,7 @@ export function WavesShow(){
     return (
         <div className="flex flex-col h-[calc(100vh-64px)] lg:h-full w-full lg:items-center">
             <div role="button" onClick={() => navigate(-1)} className="flex gap-3 w-full p-3 bg-[#141414]/90 items-center hover:cursor-pointer lg:w-2/5">
-                <img src="/brand/svgs/rchevron.svg" width={32} alt="Exit chat" className="rotate-180" />
+                <img src="/brand/svgs/rchevron.svg" loading="lazy" width={32} alt="Exit chat" className="rotate-180" />
                 <p>Go Back</p>
             </div>
             <div className="h-full w-full lg:w-2/5">

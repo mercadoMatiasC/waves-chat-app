@@ -1,17 +1,5 @@
-import { API_URL } from "../../../constants/api";
+import { apiRequest } from "../../../utils/apiClient";
 
 export async function fetchShowUser(user_id) {
-  const res = await fetch(`${API_URL}/users/${user_id}`, {
-    method: "GET",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-    },
-    credentials: "include", 
-  });
-
-  if (!res.ok)
-    throw new Error("Unauthorized");
-
-  return await res.json();
+    return apiRequest(`/users/${user_id}`, { method: "GET" });
 }

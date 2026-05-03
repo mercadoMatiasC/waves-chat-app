@@ -16,7 +16,7 @@ export function Message({ message, is_mine, sender, isGroup }) {
         <div className={`flex flex-col w-full mb-2`}>
                 <div className={`flex w-full gap-3 ${is_mine ? 'justify-end items-end' : 'justify-start items-start'}"`}>
                     {(isGroup && !is_mine) && (
-                        <img src={userAvatar} alt="My Profile" width={48} className={image_class} />
+                        <img src={userAvatar} loading="lazy" alt="My Profile" width={48} className={image_class} />
                     )}
                     <div onClick={() => is_mine && setShowMobileMenu(!showMobileMenu)} className={`flex flex-row justify-between gap-2 p-3 max-w-[70%] rounded-xl shadow-lg items-end cursor-pointer ${
                         is_mine 

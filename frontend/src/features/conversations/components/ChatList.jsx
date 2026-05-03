@@ -2,11 +2,12 @@ import { useIndexChats } from "../hooks/useIndexChats";
 import { Chat } from "./Chat";
 import { ChatSearchBar } from "./ChatSearchBar";
 import { Divider } from "../../../components/Divider";
+import { LoadingScreen } from "../../../components/LoadingScreen"; 
 
 export function ChatList(){
     const { data: chatData, isLoading, error } = useIndexChats();
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <LoadingScreen />;
     if (error) return <p>Error: {error.message}</p>;
 
     const chats = chatData.data;

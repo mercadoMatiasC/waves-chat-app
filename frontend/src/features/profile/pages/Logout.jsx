@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLogout } from "../hooks/useLogout";
+import { LoadingScreen } from "../../../components/LoadingScreen";
 
 export function Logout(){
     const { mutate } = useLogout();
@@ -13,8 +14,8 @@ export function Logout(){
     }, [mutate]);
 
     return (
-        <div className="flex h-screen items-center justify-center">
-            <p className="text-white">Logging out of Waves...</p>
+        <div className="flex h-screen w-screen items-center justify-center">
+            <LoadingScreen message="See you soon!" />
         </div>
     );
 }

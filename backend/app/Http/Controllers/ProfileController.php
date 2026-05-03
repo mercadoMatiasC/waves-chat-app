@@ -57,7 +57,7 @@ class ProfileController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('logo_file')) {
-            $newFilename = "{$user->id}.png";
+            $newFilename = "{$user->id}.webp";
             
             $path = $image_service->profileImageProcess(
                 file: $request->file('logo_file'),

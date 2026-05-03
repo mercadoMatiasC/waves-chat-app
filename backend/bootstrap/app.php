@@ -13,13 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        //SPA SESSION-BASE AUTH
         $middleware->statefulApi(); 
-
-        $middleware->validateCsrfTokens(except: [
-            'api/login',
-            'api/logout',
-            'api/*'
-        ]);
+        $middleware->validateCsrfTokens();
 
         $middleware->alias([
             'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
@@ -27,19 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        
-        //VALIDATION (422)
-        $exceptions->render(function (\Illuminate\Validation\ValidationException $e, $request) {
-            if ($request->expectsJson()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Invalid data.',
-                    'errors' => $e->errors(),
-                ], 422);
-            }
-        });
-
-        //MODEL NOT FOUND (404)
+        // MODEL NOT FOUND (404)
         $exceptions->render(function (\Illuminate\Database\Eloquent\ModelNotFoundException $e, $request) {
             return response()->json([
                 'success' => false,
@@ -47,32 +31,16 @@ return Application::configure(basePath: dirname(__DIR__))
             ], 404);
         });
 
-        //BUSINESS LOGIC (409)
+        // BUSINESS LOGIC (409)
         $exceptions->render(function (BusinessException $e, $request) {
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 409);
+            return response()->json([
+                'success' => false, 
+                'message' => $e->getMessage()
+            ], 409);
         });
 
-        //READ ID ON NULL
-        $exceptions->render(function (\Error $e, $request) {
-            if (str_contains($e->getMessage(), 'read property "id" on null')) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Internal logic error: Tried to access an ID on a non-existent object.'
-                ], 500);
-            }
-        });
-
-        //GLOBAL FALLBACK
-        $exceptions->render(function (Throwable $e, $request) {
-            if ($request->is('api/*') || $request->expectsJson()) {
-                if ($e instanceof \Illuminate\Auth\AuthenticationException) {
-                    return response()->json(['success' => false, 'message' => 'Unauthenticated.'], 401);
-                }
-
-                $status = method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500;
-                $msg = config('app.debug') ? $e->getMessage() : 'Internal server error.';
-                
-                return response()->json(['success' => false, 'message' => $msg], $status);
-            }
+        // GLOBAL FALLBACK FOR API
+        $exceptions->shouldRenderJsonWhen(function ($request, $e) {
+            return $request->is('api/*') || $request->expectsJson();
         });
     })->create();

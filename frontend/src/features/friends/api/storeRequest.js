@@ -1,19 +1,7 @@
-import { API_URL } from "../../../constants/api";
+import { apiRequest } from "../../../utils/apiClient";
 
 export async function storeRequest(other_user_id) {
-  const res = await fetch(`${API_URL}/friend-requests/${other_user_id}`, {
-    method: "POST",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-  });
-
-  const json = await res.json();
-
-  if (!res.ok)
-    throw json;
-
-  return json;
+    return apiRequest(`/friend-requests/${other_user_id}`, { 
+        method: "POST",
+    });
 }

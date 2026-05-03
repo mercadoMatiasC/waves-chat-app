@@ -38,7 +38,7 @@ export function Login(){
                 <div className="flex items-center justify-between">
                     <h1 className="text-xl font-light">Welcome back!</h1>
                     <span className="flex items-center">
-                        <img src="/brand/mini-logo.webp" width={64} alt="waves-logo" />
+                        <img src="/brand/mini-logo.webp" loading="lazy" width={64} alt="waves-logo" />
                         <h1 id="waves-sign" className="text-xl text-end">Waves</h1>
                     </span>
                 </div>

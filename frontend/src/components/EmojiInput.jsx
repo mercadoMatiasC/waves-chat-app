@@ -30,7 +30,7 @@ export function EmojiInput({ value, onChange, label = "Emoji" }) {
             
             <div onClick={() => setShowPicker(!showPicker)} className="w-full bg-[#303030] p-3 rounded-2xl cursor-pointer flex justify-between items-center border border-transparent hover:border-sky-700/50 transition-colors">
                 <span className="text-xl">{value || "Select an emoji..."}</span>
-                <img src="/brand/svgs/rchevron.svg" width={16} alt="Exit chat" className="rotate-90" />
+                <img src="/brand/svgs/rchevron.svg" loading="lazy" width={16} alt="Exit chat" className="rotate-90" />
             </div>
 
             {showPicker && (

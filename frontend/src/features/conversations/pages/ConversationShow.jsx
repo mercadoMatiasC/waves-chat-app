@@ -8,6 +8,7 @@ import { useMe } from "../../profile/hooks/useMe";
 import { MainMessageContainer } from "../components/MainMessagesContainer";
 import { LoadingScreen } from "../../../components/LoadingScreen";
 import { useState } from "react";
+import { ErrorScreen } from "../../../components/ErrorScreen";
 
 export function ConversationShow() {
     const { id } = useParams();
@@ -20,7 +21,7 @@ export function ConversationShow() {
         fetchNextPage, hasNextPage, isFetchingNextPage } = useChatMessages(id);
 
     if (isLoading || messagesIsLoading || meIsLoading) return <LoadingScreen />
-    if (error || messagesError || meError) return <p>Error loading chat.</p>;
+    if (error || messagesError || meError) return <ErrorScreen message={error.message || messagesError.message || meError.error } />;
 
     //FLATS DIFFERENT PAGES OF ARRAYS INTO A SINGLE ARRAY
     const messages = chatMessages?.pages.flatMap(page => page.data) ?? [];

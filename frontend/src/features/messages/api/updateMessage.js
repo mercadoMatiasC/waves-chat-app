@@ -1,20 +1,8 @@
-import { API_URL } from "../../../constants/api";
+import { apiRequest } from "../../../utils/apiClient";
 
 export async function updateMessage(id, data) {
-  const res = await fetch(`${API_URL}/messages/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-    body: JSON.stringify(data),
-  });
-
-  const json = await res.json();
-
-  if (!res.ok) 
-    throw json;
-
-  return json;
+    return apiRequest(`/messages/${id}`, { 
+        method: "PATCH", 
+        body: data
+    });
 }

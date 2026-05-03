@@ -6,7 +6,7 @@ export function IndexContact({ contact, onSelect, isSelected }) {
             : 'bg-[#242424] hover:bg-[#202020]'
         }`}>
             <div className="flex items-center gap-3">
-                <img src={contact?.profile_image_route || "/brand/icons/avatar.webp"} width={54} className="rounded-full aspect-square object-cover" alt="avatar" />
+                <img src={contact?.profile_image_route || "/brand/icons/avatar.webp"} loading="lazy" width={54} className="rounded-full aspect-square object-cover" alt="avatar" />
                 <h2 className={isSelected ? "text-emerald-400 font-bold" : ""}>
                     {contact?.username}
                 </h2>
