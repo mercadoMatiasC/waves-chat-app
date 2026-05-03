@@ -6,6 +6,8 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 // -- CONVERSATIONS --
 import { ConversationsIndex } from './features/conversations/pages/ConversationsIndex';
 import { ConversationShow } from './features/conversations/pages/ConversationShow';
+import { ConversationCreate } from './features/conversations/pages/ConversationCreate';
+import { ConversationEdit } from './features/conversations/pages/ConversationEdit';
 
 // -- PROFILE --
 import { Login } from './features/profile/pages/Login';
@@ -14,8 +16,9 @@ import { Me } from './features/profile/pages/Me';
 import { Register } from './features/profile/pages/Register';
 import { UsersIndex } from './features/profile/pages/UsersIndex';
 import { UsersShow } from './features/profile/pages/UserShow';
+
+// -- WAVES --
 import { WavesShow } from './features/waves/pages/WavesShow';
-import { ConversationCreate } from './features/conversations/pages/ConversationCreate';
 
 export default function App() {
   return (
@@ -32,8 +35,9 @@ export default function App() {
           {/* -- CONVERSATIONS -- */}
           <Route path="/Chats">
             <Route index element={<ConversationsIndex />} />
+            <Route path="Create" element={<ConversationCreate />} />  
             <Route path=":id" element={<ConversationShow />} /> 
-            <Route path="Create" element={<ConversationCreate />} />           
+            <Route path=":id/Edit" element={<ConversationEdit />} />         
           </Route>
           
           {/* -- PROFILE -- */}

@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useMe } from "../features/profile/hooks/useMe";
 
 export function Dashboard(){
+    const { data: me } = useMe();
+    const userAvatar = me?.data.profile_image_route ? me.data.profile_image_route : "/brand/icons/avatar.webp";
     const icon_size = 100;
     const icon_class = "drop-shadow-xl drop-shadow-black hover:-translate-y-1 hover:drop-shadow-sky-600/40 hover:cursor-pointer duration-200";
 
@@ -16,14 +19,14 @@ export function Dashboard(){
                 </Link>
                 
                 <Link to="/Me">
-                    <img src="/brand/icons/avatar.webp" width={icon_size} alt="My avatar placeholder" className={icon_class} />
+                    <img src={userAvatar} width={icon_size} alt="My avatar placeholder" className={`${icon_class} rounded-full object-cover`} />
                 </Link>
 
                 <Link to="/Logout">
                     <img src="/brand/icons/logout-icon.webp" width={icon_size} alt="Log out icon" className={icon_class} />
                 </Link>
 
-                <Link to="/">
+                <Link to="/Chats/Create">
                     <img src="/brand/icons/create-group-icon.webp" width={icon_size} alt="Create a group" className={icon_class} />
                 </Link>
             </div>

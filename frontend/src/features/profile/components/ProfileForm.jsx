@@ -18,7 +18,7 @@ export function ProfileForm({ user = null }){
         password_confirmation: "",
         username: user?.username ||  "",
         description: user?.description || "",
-        profile_image_route: user.profile_image_route || "",
+        profile_image_route: user?.profile_image_route || "",
         logo_file: null,
     });
 
@@ -123,11 +123,15 @@ export function ProfileForm({ user = null }){
                     <label htmlFor="register-description">Description</label>
                     <input id="register-description" type="text" name="description" onChange={handleChange} value={formData.description} className="w-full bg-[#303030] placeholder:font-light p-3 rounded-2xl focus:outline-none" />
                 
-                    <label htmlFor="logo_file">Profile avatar</label>
-                    <div className="flex items-center gap-4">
-                        <img src={formData.profile_image_route || "/brand/icons/avatar.webp"} className="w-16 h-16 rounded-full object-cover border-2 border-sky-700" alt="Preview" />
-                        <InputFile name="logo_file" onChange={handleFileChange} />
-                    </div>
+                    {is_edit && (
+                        <>
+                            <label htmlFor="logo_file">Profile avatar</label>
+                            <div className="flex items-center gap-4">
+                                <img src={formData.profile_image_route || "/brand/icons/avatar.webp"} className="w-16 h-16 rounded-full object-cover border-2 border-sky-700" alt="Preview" />
+                                <InputFile name="logo_file" onChange={handleFileChange} />
+                            </div>
+                        </>
+                    )}
                 </div>
 
                 {/* -- MUTATION MESSAGES -- */}

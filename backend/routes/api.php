@@ -40,8 +40,9 @@ use Illuminate\Support\Facades\Route;
             Route::post  ('chats', 'store');
             Route::get   ('chats', 'index');
             Route::patch ('chats/{conversation}', 'update');
-            Route::get   ('chats/{conversation}', 'show'); // -- MODIFIED ENDPOINT --
-
+            Route::get   ('chats/{conversation}', 'show');      // -- MODIFIED ENDPOINT --
+            Route::delete('chats/{conversation}', 'destroy');   // -- NEW ENDPOINT --
+            Route::get   ('chats/{conversation}/Edit', 'edit'); // -- NEW ENDPOINT --
         });
 
         //-- MESSAGES --

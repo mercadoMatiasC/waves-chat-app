@@ -11,24 +11,23 @@ export function useUpdateGroup() {
       await queryClient.cancelQueries(["chat", id]);
       const previous_group = queryClient.getQueryData(["chat", id]);
 
+      // 'data' is already a clean object now!
       queryClient.setQueryData(["chat", id], old => ({
-        ...old,
-        ...data
+          ...old,
+          ...data 
       }));
 
-      queryClient.setQueryData(["chat"], old => { //UPDATE LIST
-        if (!old?.data) 
-            return old;
-
-        return {
-          ...old,
-          data: old.data.map(g =>
-            g.id === id ? { 
-              ...g, 
-              ...data } 
-            : g
-          )
-        };
+      queryClient.setQueryData(["chat"], old => {
+          if (!old?.data) return old;
+          return {
+              ...old,
+              data: old.data.map(g =>
+                  g.id === id ? { 
+                    ...g, 
+                    ...data
+                  } : g
+              )
+          };
       });
 
       return { previous_group };

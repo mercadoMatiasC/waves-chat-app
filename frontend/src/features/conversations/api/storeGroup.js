@@ -5,9 +5,10 @@ export async function storeGroup(data) {
     method: "POST",
     headers: {
       "Accept": "application/json",
+      "Content-Type": "application/json",
     },
     credentials: "include",
-    body: data,
+    body: JSON.stringify(data),
   });
 
   if (res.status === 204) //NO JSON PARSING IF THERE WERE NO ERRORS

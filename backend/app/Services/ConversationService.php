@@ -29,6 +29,18 @@ class ConversationService {
                 throw new BusinessException("User {$invited_user->username} is not in your friends list.");
     }
 
+    public function ensureUserIsMember(Conversation $conversation) {
+        if (!$conversation->participants()->where('users.id', Auth::id())->exists())
+            throw new BusinessException("You are no longer a member of this group.");
+    }
+
+    public function ensureUserIsOwner(Conversation $conversation) {
+        $this->ensureUserIsMember($conversation);
+
+        if (!$conversation->owner()->is(Auth::user()))
+            throw new BusinessException("You are not the owner of this group.");
+    }
+
     public function storeConversation(array $data, array $participant_ids, ?User $owner = null) {
         return DB::transaction(function () use ($data, $participant_ids, $owner) {            
             $auth_user = Auth::user();
@@ -58,11 +70,11 @@ class ConversationService {
         if (!$conversation->isGroup()) 
             throw new BusinessException("This conversation is not a group!");
 
-        if (!$conversation->owner->is(Auth::user()))
-            throw new BusinessException("You don't have permission to update this chat information.");
+        $this->ensureUserIsOwner($conversation);
 
         return DB::transaction(function () use ($data, $participant_ids, $conversation) {
             $conversation->refresh()->lockForUpdate();
+
             $current_ids = $conversation->participants()->pluck('users.id')->toArray();
 
             $new_ids = array_diff($participant_ids, $current_ids);
@@ -76,6 +88,20 @@ class ConversationService {
             $conversation->update($data);
 
             return $conversation->load('participants');
+        });
+    }
+
+    public function deleteConversation(Conversation $conversation) {
+        if (!$conversation->isGroup()) 
+            throw new BusinessException("This conversation is not a group!");
+
+        $this->ensureUserIsOwner($conversation);
+
+        return DB::transaction(function () use ($conversation) {
+            $conversation->refresh()->lockForUpdate();
+            $conversation->delete();
+
+            return true;
         });
     }
 }

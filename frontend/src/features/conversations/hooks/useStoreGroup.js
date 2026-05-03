@@ -13,7 +13,7 @@ export function useStoreGroup() {
       console.error(error);
     },
     onSuccess: () => {
-      queryClient.clear(); 
+      queryClient.invalidateQueries({ queryKey: ['chats'] });
       console.log('Successfully created group');
       navigate('/');
     }
