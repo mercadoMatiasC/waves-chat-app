@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchIndexChats } from "../api/getIndexChats";
 
-export function useIndexChats() {
-  return useQuery({
-    queryKey: ["index_chats"],
-    queryFn: () => fetchIndexChats(),
-  });
+export function useIndexChats(q = "") {
+    return useQuery({
+        queryKey: ['chats', q],
+        queryFn: () => fetchIndexChats(`/chats?q=${q}`),
+    });
 }

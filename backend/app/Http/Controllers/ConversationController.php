@@ -7,16 +7,26 @@ use App\Http\Requests\ConversationRequest;
 use App\Http\Resources\ConversationIndexResource;
 use App\Http\Resources\ConversationShowResource;
 use App\Services\ConversationService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ConversationController extends Controller
 {
-    public function index() {
-        $conversations = Auth::user()->conversations()
+    public function index(Request $request) {
+        $search_term = $request->input('q');
+
+        $query = Auth::user()->conversations()
             ->with(['participants', 'latestMessage'])
             ->withMax('messages', 'created_at')
-            ->orderByRaw('COALESCE(messages_max_created_at, conversations.created_at) DESC')
-            ->paginate(20);
+            ->orderByRaw('COALESCE(messages_max_created_at, conversations.created_at) DESC');
+
+        if (!empty($search_term))
+            $query->whereHas('participants', function($q) use ($search_term) {
+                $q->where('username', 'LIKE', "%{$search_term}%")
+                ->where('users.id', '!=', Auth::id());
+            });
+
+        $conversations = $query->paginate(20);
 
         return ConversationIndexResource::collection($conversations);
     }

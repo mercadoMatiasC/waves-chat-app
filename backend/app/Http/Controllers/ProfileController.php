@@ -18,16 +18,16 @@ class ProfileController extends Controller
         $myId = Auth::id();
 
         $friendIds = DB::table('friends')->where(function($query) use ($myId) {
-                $query->where('lower_user_id', $myId)->orWhere('higher_user_id', $myId);
-            })
-            ->where('request_accepted', true)->get()
-            ->map(function ($friendship) use ($myId) {
-                return $friendship->lower_user_id == $myId 
-                    ? $friendship->higher_user_id 
-                    : $friendship->lower_user_id;
-            });
+            $query->where('lower_user_id', $myId)->orWhere('higher_user_id', $myId);
+        })
+        ->where('request_accepted', true)->get()
+        ->map(function ($friendship) use ($myId) {
+            return $friendship->lower_user_id == $myId 
+                ? $friendship->higher_user_id 
+                : $friendship->lower_user_id;
+        });
 
-        $users = User::where('id', '!=', $myId)->whereNotIn('id', $friendIds)->when($request->search, function($query, $search) {
+        $users = User::where('id', '!=', $myId)->whereNotIn('id', $friendIds)->when($request->q, function($query, $search) {
             $query->where('username', 'like', "%{$search}%");
         })->paginate(20);
 

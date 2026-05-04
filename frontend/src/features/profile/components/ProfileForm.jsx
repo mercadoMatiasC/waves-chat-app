@@ -71,9 +71,8 @@ export function ProfileForm({ user = null }){
                 id: user.id, 
                 data: dataToSend 
             });
-        } else {
+        } else
             mutation.mutate({ data: dataToSend });
-        }
     }
 
     useEffect(() => {

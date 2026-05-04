@@ -29,7 +29,6 @@ use Illuminate\Support\Facades\Route;
             Route::post  ('/friend-requests/{user}', 'store');
             Route::patch ('/friend-requests/{user}', 'accept');
             Route::delete('/friends/{user}', 'destroy');
-
             Route::get   ('/friends', 'index');
             Route::get   ('/friend-requests/sent', 'sentRequests');
             Route::get   ('/friend-requests/received', 'receivedRequests');
