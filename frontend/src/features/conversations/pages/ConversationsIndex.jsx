@@ -1,5 +1,6 @@
 import { ChatList } from "../components/ChatList";
 import { Dashboard } from "../../../components/Dashboard";
+import { PageAnimWrapper } from "../../../components/PageAnimWrapper";
 
 export function ConversationsIndex(){
     return (
@@ -10,9 +11,9 @@ export function ConversationsIndex(){
             </section>
 
             {/* -- DASHBOARD -- */}
-            <section className="hidden flex-col items-center w-screen min-h-[calc(100vh-64px)] pl-2 lg:flex lg:w-[70%] lg:h-full">
+            <PageAnimWrapper className={"hidden flex-col items-center w-screen min-h-[calc(100vh-64px)] pl-2 lg:flex lg:w-[70%] lg:h-full"}>
                 <Dashboard />
-            </section>
+            </PageAnimWrapper>
         </main>
     );
 }

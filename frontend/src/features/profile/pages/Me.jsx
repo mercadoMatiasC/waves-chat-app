@@ -4,6 +4,7 @@ import { ProfileForm } from "../components/ProfileForm";
 import { LoadingScreen } from "../../../components/LoadingScreen";
 import { WaveForm } from "../../waves/components/WaveForm";
 import { FriendList } from "../components/FriendList";
+import { PageAnimWrapper } from "../../../components/PageAnimWrapper";
 
 import { useMe } from "../hooks/useMe";
 import { useFriends } from "../hooks/useFriends";
@@ -18,7 +19,7 @@ export function Me(){
     const { wave, ...user_data } = me.data;
 
     return (
-        <main className="flex flex-col w-full p-0 h-full lg:h-screen lg:p-2 lg:rounded-xl lg:flex-row overflow-hidden">
+        <PageAnimWrapper className="flex flex-col w-full p-0 h-full lg:h-screen lg:p-2 lg:rounded-xl lg:flex-row overflow-hidden">
             <section className="flex flex-col pt-8 items-center bg-[#141414] w-screen p-3 lg:drop-shadow-lg lg:drop-shadow-black lg:w-[30%] lg:h-full lg:rounded-xl overflow-y-auto custom-scrollbar">                {/* -- DISPLAY USER INFORMATION -- */}
                 {/* -- PROFILE DISPLAY -- */}
                 <ProfileDisplay user={user_data} />
@@ -47,6 +48,6 @@ export function Me(){
                     </div>
                 </div>
             </section>
-        </main>
+        </PageAnimWrapper>
     );
 }

@@ -4,6 +4,7 @@ import { useReceivedRequests } from "../../friends/hooks/useReceivedRequests";
 import { useSentRequests } from "../../friends/hooks/useSentRequests";
 import { LoadingScreen } from "../../../components/LoadingScreen";
 import { Divider } from "../../../components/Divider"
+import { PageAnimWrapper } from "../../../components/PageAnimWrapper";
 
 export function UsersIndex(){
     const { data: receivedRequests, isLoading: receivedIsLoading, error: receivedError } = useReceivedRequests();
@@ -13,7 +14,7 @@ export function UsersIndex(){
     if (receivedError || sentError) return <p>Error: {receivedError.message || sentError.message}</p>;
 
     return (
-        <main className="flex flex-col-reverse w-full bg-[#141414] lg:bg-white/0 p-0 h-full lg:p-2 lg:rounded-xl lg:flex-row">
+        <PageAnimWrapper className="flex flex-col-reverse w-full bg-[#141414] lg:bg-white/0 p-0 h-full lg:p-2 lg:rounded-xl lg:flex-row">
             {/* -- USERS LIST -- */}
             <section className="flex flex-col items-center w-screen min-h-[calc(100vh-64px)] drop-shadow-lg drop-shadow-black lg:bg-[#141414] lg:w-[30%] lg:h-full lg:rounded-xl">
                 <UserList />
@@ -36,6 +37,6 @@ export function UsersIndex(){
                     <RequestList requests={sentRequests?.data || []} />
                 </div>
             </section>
-        </main>
+        </PageAnimWrapper>
     );
 }

@@ -1,6 +1,7 @@
 import { ProfileDisplay } from "../components/ProfileDisplay";
 import { LoadingScreen } from "../../../components/LoadingScreen";
 import { Wave } from "../components/Wave"
+import { PageAnimWrapper } from "../../../components/PageAnimWrapper";
 
 import { Link, useParams } from "react-router-dom";
 import { useShowUser } from "../hooks/useShowUser";
@@ -15,7 +16,7 @@ export function UsersShow(){
     const user_data = showUserData.data;
 
     return (
-        <main className="flex flex-col w-full p-0 min-h-[calc(100vh-64px)] lg:h-full lg:p-2 lg:rounded-xl lg:flex-row">
+        <PageAnimWrapper className="flex flex-col w-full p-0 min-h-[calc(100vh-64px)] lg:h-full lg:p-2 lg:rounded-xl lg:flex-row">
             <section className="flex flex-col items-center bg-[#141414] w-full p-3 lg:drop-shadow-lg lg:drop-shadow-black lg:w-[30%] lg:h-full lg:rounded-xl">
                 {/* -- DISPLAY USER INFORMATION -- */}
                 <ProfileDisplay user={user_data} />
@@ -44,6 +45,6 @@ export function UsersShow(){
                     </div>
                 </section>
             )}
-        </main>
+        </PageAnimWrapper>
     );
 }
