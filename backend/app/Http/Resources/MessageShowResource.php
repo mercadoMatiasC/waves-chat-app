@@ -12,6 +12,8 @@ class MessageShowResource extends JsonResource{
             "sender_id" => $this->sender_id,
             "text_body" => $this->text_body,
             "attachments" => AttachmentResource::collection($this->whenLoaded('attachments')),
+            "created_at" => $this->created_at,
+            "updated_at" => $this->updated_at,
         ];
     } 
 }

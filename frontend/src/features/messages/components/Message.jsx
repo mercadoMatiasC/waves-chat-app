@@ -4,14 +4,14 @@ import { MessageEditModal } from "./MessageEditModal";
 export function Message({ message, is_mine, sender, isGroup }) {
     const [editMessage, setEditMessage] = useState(false);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
-    
+
     const message_date = new Date(message.created_at);
     const message_time = message_date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     const image_class = "rounded-full object-cover h-[48px]";
     const is_edited = message.created_at != message.updated_at;
     const userAvatar = sender?.profile_image_route ? sender.profile_image_route : "/brand/icons/avatar.webp";
-    
+
     return (
         <div className={`flex flex-col w-full mb-2`}>
                 <div className={`flex w-full gap-3 ${is_mine ? 'justify-end items-end' : 'justify-start items-start'}"`}>

@@ -2,8 +2,11 @@
 :: Start XAMPP Minimized
 start /min "Xampp" "D:\xampp\xampp-control.exe"
 
-:: Start Frontend in a new, titled window
-start "Frontend-App" /D "D:\xampp\htdocs\WavesChatApp\frontend" "RUN.bat"
+:: Start Frontend via PowerShell (Minimized, NoExit)
+start /min powershell -NoExit -command "cd D:\xampp\htdocs\WavesChatApp\frontend; npm run dev -- --host"
+
+:: Start Reverb via PowerShell (Minimized, NoExit)
+start /min powershell -NoExit -command "cd D:\xampp\htdocs\WavesChatApp\backend; php artisan reverb:start --host=0.0.0.0 --port=8080 --debug"
 
 :: Start VSCODE
 start "VSCode" "D:\Program Files\Microsoft VS Code\Code.exe"

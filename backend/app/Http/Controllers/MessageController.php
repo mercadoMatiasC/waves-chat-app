@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PrivateMessageSent;
 use App\Http\Requests\MessageRequest;
 use App\Http\Resources\MessageIndexResource;
 use App\Http\Resources\MessageShowResource;
@@ -34,8 +35,12 @@ class MessageController extends Controller
         ];
         
         $message = $service->storeMessage($request->validated(), $conversation, $mock_attachments);
+        $message_resource = new MessageShowResource($message);
 
-        return (new MessageShowResource($message))->response()->setStatusCode(201);
+        $broadcastData = $message_resource->resolve();
+        broadcast(new PrivateMessageSent($conversation->id, $broadcastData))->toOthers();
+
+        return $message_resource->response()->setStatusCode(201);
     }
 
     public function show(Message $message, MessageService $service) {

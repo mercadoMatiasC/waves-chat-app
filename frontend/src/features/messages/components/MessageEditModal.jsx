@@ -31,7 +31,7 @@ export function MessageEditModal({ message, setEditMessage }){
     }
 
     return (
-        <div id="edit-message-modal" class="flex flex-col fixed inset-0 bg-gray-900/80 overflow-y-auto h-full w-full z-40 justify-center items-center gap-3">
+        <div id="edit-message-modal" className="flex flex-col fixed inset-0 bg-gray-900/80 overflow-y-auto h-full w-full z-40 justify-center items-center gap-3">
             <MutationMessages mutation={updateMessageMutation} />
             <h1 className="flex w-[92%] justify-start lg:w-4/5">
                 <span className="text-lg font-light">Edit message</span>

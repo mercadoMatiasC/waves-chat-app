@@ -12,7 +12,7 @@ export function MainMessageContainer({ messages, isGroup, participants, messages
                 {messages.length > 0 ? (
                     <>
                         {messages.map((item, index) => (
-                            <Message key={item.id || index} isGroup={isGroup} message={item} is_mine={item.sender_id === me?.data.id} sender={participants.find(u => u.id === item.sender_id)} />
+                            <Message key={index} isGroup={isGroup} message={item} is_mine={item.sender_id === me?.data.id} sender={participants.find(u => u.id === item.sender_id)} />
                         ))}
 
                         {messagesPagination.hasNextPage && (

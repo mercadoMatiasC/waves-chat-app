@@ -3,7 +3,6 @@ import { AnimatePresence } from "framer-motion";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Layout } from './layout/Layout';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { LoadingScreen } from './components/LoadingScreen';
 
 // -- CONVERSATIONS --
 import { ConversationsIndex } from './features/conversations/pages/ConversationsIndex';

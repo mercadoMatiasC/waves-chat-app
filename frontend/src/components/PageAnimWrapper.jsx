@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 
-export function PageAnimWrapper({ children, className, key }) {
+export function PageAnimWrapper({ children, className, uniqueKey }) {
   return (
     <motion.div
       layout
-      key={key}
+      key={uniqueKey}
       className={className}
       initial={{ opacity: 0, y: -5 }}
       animate={{ opacity: 1, y: 0 }}
