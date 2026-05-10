@@ -1,5 +1,7 @@
 import { Message } from "../../messages/components/Message";
 import { AttachmentsMenu } from "./AttachmentsMenu";
+import { PageAnimWrapper } from "../../../components/PageAnimWrapper";
+import { AnimatePresence } from "framer-motion";
 
 export function MainMessageContainer({ messages, isGroup, participants, messagesPagination, me, attachmentsMenu, onEmojiSelect}){
     return (

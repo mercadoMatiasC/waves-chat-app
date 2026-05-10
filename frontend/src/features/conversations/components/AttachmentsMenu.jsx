@@ -10,7 +10,7 @@ export function AttachmentsMenu({ attachmentsMenu, onEmojiSelect }){
     const img_class = "ease-in-out duration-200";
 
     return (
-        <div className="fixed flex flex-col w-full bg-black/85 p-4 gap-2">
+        <section className="fixed flex flex-col w-full bg-black/85 p-4 gap-2">
             {showPicker && (
                 <div className="">
                     <EmojiPicker theme='dark' autoFocusSearch={false} width={screen} height={400} onEmojiClick={(emojiData) => {onEmojiSelect(emojiData.emoji)}} />
@@ -31,6 +31,6 @@ export function AttachmentsMenu({ attachmentsMenu, onEmojiSelect }){
                     File
                 </li>
             </ul>
-        </div>
+        </section>
     );
 }

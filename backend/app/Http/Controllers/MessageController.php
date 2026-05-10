@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\PrivateMessageSent;
+use App\Events\PrivateMessageUpdated;
 use App\Http\Requests\MessageRequest;
 use App\Http\Resources\MessageIndexResource;
 use App\Http\Resources\MessageShowResource;
@@ -53,6 +54,11 @@ class MessageController extends Controller
     public function update(MessageRequest $request, Message $message, MessageService $service) {
         $service->updateMessage($request->validated(), $message->conversation, $message);
 
-        return (new MessageShowResource($message))->response()->setStatusCode(200);
+        $resource = new MessageShowResource($message);
+        $broadcastData = $resource->resolve();
+
+        broadcast(new PrivateMessageUpdated($message->conversation_id, $broadcastData))->toOthers();
+
+        return $resource->response()->setStatusCode(200);
     }
 }

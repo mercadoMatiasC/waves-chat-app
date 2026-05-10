@@ -5,7 +5,7 @@ Una aplicación de chat que presenta Waves, una divertida forma de compartir tus
 
 Objetivo: Aprender y demostrar una arquitectura limpia de diseño tanto de estructura de datos como UX/UI.  
 
-Estado: En desarrollo.  
+Estado: Beta (en desarrollo activo).  
 Stack principal: Laravel (Rest API) | React.JS (Frontend SPA).  
 
 ## Estructura

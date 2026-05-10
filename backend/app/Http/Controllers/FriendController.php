@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Friend;
+use App\Events\PrivateFriendRequestReceived;
 use App\Http\Resources\FriendResource;
 use App\Http\Resources\UserIndexResource;
+use App\Http\Resources\UserShowResource;
 use App\Models\User;
 use App\Services\ConversationService;
 use App\Services\FriendService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class FriendController extends Controller
 {
@@ -41,6 +41,14 @@ class FriendController extends Controller
 
     public function store(User $user, FriendService $service) {
         $friend_request = $service->storeFriendRequest($user);
+        $me = Auth::user();
+        
+        $senderData = [
+            'username' => $me->username,
+            'profile_image_route' => $me->profile_image_route ? asset('storage/' . $me->profile_image_route) : null
+        ];
+
+        broadcast(new PrivateFriendRequestReceived($user->id, $senderData))->toOthers();
 
         return (new FriendResource($friend_request))->response()->setStatusCode(201);
     }
